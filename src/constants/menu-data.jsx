@@ -11,44 +11,25 @@ export const NavigatorItems = [
     label: 'New Avirrals',
     key: 'arrivals',
     icon: <ReadOutlined />,
-    children: [
-    ]
+    children: []
   },
   {
-    label: 'Shop',
-    key: 'shop',
+    label: 'Collection',
+    key: 'collection',
     icon: <SettingOutlined />,
     children: [
       {
-        label: 'T-shirts',
-        key: '/t-shirts'
+        label: 'Collection 1',
+        key: '/collection1'
       },
       {
-        label: 'Shirt',
-        key: '/shirt'
+        label: 'Collection 2',
+        key: '/collection2'
       },
       {
-        label: 'Jeans',
-        key: '/jeans'
+        label: 'Collection 3',
+        key: '/collection3'
       },
-      {
-        label: 'Pants',
-        key: '/pants'
-      },
-    ]
-  },
-  {
-    label: 'Look book',
-    key: 'book',
-    icon: <ReadOutlined />,
-    children: [
-    ]
-  },
-  {
-    label: 'News',
-    key: 'news',
-    icon: <ReadOutlined />,
-    children: [
     ]
   },
   {
