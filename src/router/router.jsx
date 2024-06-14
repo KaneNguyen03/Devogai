@@ -27,17 +27,13 @@ export default function Router() {
                     </div>
                   )}
                 </PrivateRoute>
-              ) : Layout ? (
+              ) :
                 <PublicRoute>
                   <Layout>
                     <Page />
                   </Layout>
                 </PublicRoute>
-              ) : (
-                <PublicRoute>
-                  <Page />
-                </PublicRoute>
-              )
+
             }
           />
         )
