@@ -48,7 +48,6 @@ const TabCategory = ({ tag }) => {
                 image: "https://cf.shopee.vn/file/6f4b8b1f1b1a6c2f3c6b3a4b5c9b9e9a"
             },
             ]
-            directUrl = "/home"
             break
         }
     }
@@ -88,6 +87,7 @@ const TabCategory = ({ tag }) => {
                                         hoverable
                                         style={{ width: 240 }}
                                         cover={<img alt="example" src={item?.url} />}
+                                        onClick={() => navigate(`/product/${item.id}`)}
                                     >
                                         <Meta title={item.name} description="www.instagram.com" />
                                     </Card>
@@ -101,9 +101,6 @@ const TabCategory = ({ tag }) => {
                 </div>
 
             </Carousel>
-            <div className='flex justify-center leading-10 p-8'>
-                {tag === "New Arrivals" ? <></> : <Button onClick={() => navigate(`${directUrl}`)}>See more</Button>}
-            </div>
         </div>
     )
 }

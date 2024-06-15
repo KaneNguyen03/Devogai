@@ -14,22 +14,24 @@ export const NavigatorItems = [
     children: []
   },
   {
-    label: 'Collection',
-    key: 'collection',
+    label: 'Collection 1',
+    key: 'collection1',
     icon: <SettingOutlined />,
     children: [
-      {
-        label: 'Collection 1',
-        key: '/collection1'
-      },
-      {
-        label: 'Collection 2',
-        key: '/collection2'
-      },
-      {
-        label: 'Collection 3',
-        key: '/collection3'
-      },
+    ]
+  },
+  {
+    label: 'Collection 2',
+    key: 'collection2',
+    icon: <SettingOutlined />,
+    children: [
+    ]
+  },
+  {
+    label: 'Collection 3',
+    key: 'collection3',
+    icon: <SettingOutlined />,
+    children: [
     ]
   },
   {

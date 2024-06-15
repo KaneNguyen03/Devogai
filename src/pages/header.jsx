@@ -1,17 +1,16 @@
 
 
+import { Button, Card, Modal, Typography } from 'antd'
 import { Header as AntHeader } from 'antd/es/layout/layout'
-import { Avatar, Button, Card, Modal, Typography } from 'antd'
 import { useNavigate } from 'react-router-dom'
 
-import { ROUTE_PATHS } from '../router'
-import { useAuth } from '../hooks/use-auth'
-import Navigator from '../components/ui/navigator'
-import Logo from '../assets/logo.jpg'
 import { DeleteOutlined, MinusOutlined, PlusOutlined, ShoppingCartOutlined } from '@ant-design/icons'
-import { useContext, useState } from 'react'
-import { CartContext } from '../context/cart-context'
 import Meta from 'antd/es/card/Meta'
+import { useContext, useState } from 'react'
+import Logo from '../assets/logo.jpg'
+import Navigator from '../components/ui/navigator'
+import { CartContext } from '../context/cart-context'
+import { useAuth } from '../hooks/use-auth'
 
 export default function Header(isLoginPage) {
   const { cartItems, removeFromCart, updateQuantity } = useContext(CartContext)
@@ -28,8 +27,6 @@ export default function Header(isLoginPage) {
     <AntHeader className="d-flex bg-primary flex justify-between items-center bg-white">
       <img src={Logo} alt="Logo" className="w-16" />
       <div className="flex items-center justify-between gap-2 bg-white text-white w-[60%]">
-        {/* <img src={Flag} alt="Flag" /> */}
-
         <Navigator />
       </div>
       {isLoginPage ? (
@@ -38,7 +35,7 @@ export default function Header(isLoginPage) {
             <Typography.Text className=''><ShoppingCartOutlined /></Typography.Text>
           </Button>
           <div className="flex flex-col">
-            {/* <Typography.Text className="text-white">{user?.data.fullName}</Typography.Text> */}
+            <Typography.Text className="text-black">{user?.data?.fullName || "Guest"}</Typography.Text>
             <Typography.Text className="text-black cursor-pointer" onClick={() => logoutMutation.mutate()}>
               Log out
             </Typography.Text>
@@ -54,23 +51,23 @@ export default function Header(isLoginPage) {
       </div>}
       <Modal
         title="Your Cart"
-        visible={isCartModalVisible}
+        open={isCartModalVisible}
         onCancel={() => setIsCartModalVisible(false)}
         footer={[
-          <div className='p-8 flex justify-center gap-8'>
+          <div className='p-8 flex justify-center gap-8' key="cart-summary">
             <Typography.Text >Total items: {totalItems}</Typography.Text>
             <Typography.Text>Total price: {totalPrice}$</Typography.Text>
           </div>,
-          <Button key="back" onClick={() => { }}>
+          <Button key="back" onClick={() => setIsCartModalVisible(false)}>
             Continue Shopping
           </Button>,
-          <Button key="submit" type="primary" onClick={() => { }} disabled={totalItems === 0}>
+          <Button key="submit" type="primary" onClick={() => { navigate("/purchase"); setIsCartModalVisible(false) }} disabled={totalItems === 0}>
             Purchase
           </Button>,
         ]}
       >
         {cartItems.map(item => (
-          <div className='flex w-full justify-around items-center p-4'>
+          <div key={item.id} className='flex w-full justify-around items-center p-4'>
             <Card
               hoverable
               style={{ width: 240 }}

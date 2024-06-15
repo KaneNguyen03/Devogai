@@ -5,12 +5,14 @@ import Login from "../pages/login"
 import NotFound from "../pages/not-found"
 import HomePage from "../pages/home-page"
 import ProductDetail from "../pages/product-detail"
+import Purchase from "../pages/purchase"
 
 export const ROUTE_PATHS = {
   ROOT: "/",
   LOGIN: "/login",
   HOME: "/home",
   PRODUCT: "/product",
+  PURCHASE: "/purchase"
 }
 
 export const routes = [
@@ -31,6 +33,12 @@ export const routes = [
     name: "Login",
     component: Login,
     layout: LoginLayout,
+  },
+  {
+    path: ROUTE_PATHS.PURCHASE,
+    name: "purchase",
+    component: Purchase,
+    layout: DefauftLayout,
   },
   {
     path: `${ROUTE_PATHS.PRODUCT}/:id`,

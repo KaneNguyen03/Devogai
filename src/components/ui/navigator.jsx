@@ -1,5 +1,5 @@
 import { Layout, Menu } from 'antd'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { NavigatorItems } from "../../constants/menu-data"
 import { OrangeButtonStyle } from '../../lib/antd/antd-styles'
 import ConfigAntdTheme from '../../lib/antd/config-theme'
@@ -8,12 +8,20 @@ const { SubMenu } = Menu
 
 export default function Navigator() {
   const navigate = useNavigate()
+  const location = useLocation()
+
+  const handleClick = (key) => {
+    if (location.pathname === '/' || location.pathname === '/home') {
+      window.location.hash = key
+    } else {
+      navigate(`/#${key}`)
+    }
+  }
 
   return (
     <ConfigAntdTheme theme={OrangeButtonStyle}>
       <Layout>
         <Menu
-          onClick={({ key }) => navigate(`/${key}`)}
           mode="horizontal"
           selectable={false}
           className='flex w-full justify-center items-center'
@@ -23,13 +31,11 @@ export default function Navigator() {
               key={item.key}
               title={item.label}
               icon={item.icon}
-              onTitleClick={() => navigate(`/${item.key}`)}
+              onTitleClick={() => {
+
+                handleClick(item.key)
+              }}
             >
-              {item.children.map((subItem) => (
-                <Menu.Item key={subItem.key} onClick={() => navigate(subItem.key)} className="text-center">
-                  {subItem.label}
-                </Menu.Item>
-              ))}
             </SubMenu>
           ))}
         </Menu>

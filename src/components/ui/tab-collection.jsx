@@ -2,9 +2,12 @@ import { Button, Card, Carousel, Select, Typography } from 'antd'
 import Meta from 'antd/es/card/Meta'
 import React, { useContext } from 'react'
 import { CartContext } from '../../context/cart-context'
-import { Option } from 'antd/es/mentions'
+import { useNavigate } from 'react-router-dom'
+
+const { Option } = Select
 
 const TabCollection = ({ tag }) => {
+    const navigate = useNavigate()
     const { cartItems, addToCart, removeFromCart } = useContext(CartContext)
     let dataTag = []
     switch (tag) {
@@ -82,6 +85,7 @@ const TabCollection = ({ tag }) => {
                                         hoverable
                                         className='w-full h-full'
                                         cover={<img alt="collection" src={item} />}
+                                        onClick={() => navigate(`/product/${dataTag[0].id}`)}
                                     >
                                         <Meta title={item} description="www.instagram.com" />
                                     </Card>
@@ -110,6 +114,7 @@ const TabCollection = ({ tag }) => {
                                         hoverable
                                         className='w-full h-full'
                                         cover={<img alt="collection" src={item} />}
+                                        onClick={() => navigate(`/product/${dataTag[1].id}`)}
                                     >
                                         <Meta title={item} description="www.instagram.com" />
                                     </Card>
@@ -125,7 +130,7 @@ const TabCollection = ({ tag }) => {
                                 <Option value="M">M</Option>
                                 <Option value="L">L</Option>
                             </Select>
-                            <Button type="primary" onClick={() => addToCart(dataTag[0])} className='mt-2 w-28'>Add to cart</Button>
+                            <Button type="primary" onClick={() => addToCart(dataTag[1])} className='mt-2 w-28'>Add to cart</Button>
                         </div>
                     </div>
                 </div>
