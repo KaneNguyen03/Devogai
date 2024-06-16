@@ -1,6 +1,6 @@
 
 
-import { Button, Card, Modal, Typography } from 'antd'
+import { Button, Card, Modal, Select, Typography } from 'antd'
 import { Header as AntHeader } from 'antd/es/layout/layout'
 import { useNavigate } from 'react-router-dom'
 
@@ -13,7 +13,8 @@ import { CartContext } from '../context/cart-context'
 import { useAuth } from '../hooks/use-auth'
 
 export default function Header(isLoginPage) {
-  const { cartItems, removeFromCart, updateQuantity } = useContext(CartContext)
+  const { cartItems, removeFromCart, updateQuantity, updateSize } = useContext(CartContext)
+  console.log("🚀 Kha ne ~ cartItems:", cartItems)
   const navigate = useNavigate()
   const { logoutMutation, user } = useAuth()
 
@@ -29,22 +30,25 @@ export default function Header(isLoginPage) {
       <div className="flex items-center justify-between gap-2 bg-white text-white w-[60%]">
         <Navigator />
       </div>
-      {isLoginPage ? (
+      {user ? (
         <div className="flex items-center gap-2">
           <Button onClick={() => setIsCartModalVisible(!isCartModalVisible)}>
             <Typography.Text className=''><ShoppingCartOutlined /></Typography.Text>
           </Button>
           <div className="flex flex-col">
-            <Typography.Text className="text-black">{user?.data?.fullName || "Guest"}</Typography.Text>
+            <Typography.Text className="text-black">{user?.username || "Guest"}</Typography.Text>
             <Typography.Text className="text-black cursor-pointer" onClick={() => logoutMutation.mutate()}>
               Log out
             </Typography.Text>
           </div>
         </div>
       ) : <div className="flex items-center gap-2">
-        <div className="flex flex-col">
+        <div className="flex justify-center items-center gap-4">
           {/* <Typography.Text className="text-white">{user?.data.fullName}</Typography.Text> */}
-          <Typography.Text className="text-black cursor-pointer" onClick={() => logoutMutation.mutate()}>
+          <Button onClick={() => setIsCartModalVisible(!isCartModalVisible)}>
+            <Typography.Text className=''><ShoppingCartOutlined /></Typography.Text>
+          </Button>
+          <Typography.Text className="text-black cursor-pointer" onClick={() => navigate("/login")}>
             Log in
           </Typography.Text>
         </div>
@@ -71,9 +75,18 @@ export default function Header(isLoginPage) {
             <Card
               hoverable
               style={{ width: 240 }}
-              cover={<img alt="example" src={item?.image} />}
+              cover={<img alt="example" src={item?.imageUrl} className='h-24 object-contain'/>}
             >
-              <Meta title={item.name} description="www.instagram.com" />
+              <Meta description={item.description}></Meta>
+              <Select
+                defaultValue={item.size}
+                className='mt-2 w-40'
+                onChange={(value) => updateSize(item.id, value)}
+              >
+                <Option value="S">S</Option>
+                <Option value="M">M</Option>
+                <Option value="L">L</Option>
+              </Select>
             </Card>
             <div className='p-4 flex flex-col items-center gap-2'>
               <div>

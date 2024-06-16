@@ -17,7 +17,7 @@ const ProductDetail = () => {
         <div className='w-[50%] p-8'>
           <Carousel autoplay autoplaySpeed={2500} arrows infinite={true} className='w-full'>
             <div>
-              <h3 className="m-0 h-96 text-white leading-4 text-lg text-center bg-green-500">1</h3>
+              <h3 className="m-0 h-96 text-white leading-4 text-lg text-center bg-gray-300">1</h3>
             </div>
             <div>
               <h3 className="m-0 h-96 text-white leading-4 text-lg text-center bg-gray-700">2</h3>
@@ -28,7 +28,8 @@ const ProductDetail = () => {
             <div>
               <h3 className="m-0 h-96 text-white leading-4 text-lg text-center bg-black">4</h3>
             </div>
-          </Carousel></div>
+          </Carousel>
+        </div>
         <Card className="rounded shadow-lg p-6" bordered={false}>
           <Typography.Title>Collection 1</Typography.Title>
           <Card.Meta

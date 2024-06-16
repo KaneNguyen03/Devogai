@@ -1,57 +1,23 @@
-import { Button, Card, Carousel, Typography } from 'antd'
+import { Button, Card, Carousel, Select, Typography } from 'antd'
 import Meta from 'antd/es/card/Meta'
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { CartContext } from '../../context/cart-context'
+import productApi from '../../services/product'
+import { useQuery } from '@tanstack/react-query'
+import Loading from "../../components/ui/loading"
 
 const TabCategory = ({ tag }) => {
     const navigate = useNavigate()
+    const [selectedSizes, setSelectedSizes] = useState({})
+    const [errors, setErrors] = useState({})
     const { cartItems, addToCart, removeFromCart } = useContext(CartContext)
-    let dataTag = []
-    let directUrl = ""
-    switch (tag) {
-        case "New Arrivals": {
-            dataTag = [{
-                id: 1,
-                name: "Áo thun 1",
-                price: "100.000",
-                image: "https://cf.shopee.vn/file/6f4b8b1f1b1a6c2f3c6b3a4b5c9b9e9a"
-            },
-            {
-                id: 2,
-                name: "Bandana 1",
-                price: "200.000",
-                image: "https://cf.shopee.vn/file/6f4b8b1f1b1a6c2f3c6b3a4b5c9b9e9a"
-            },
-            {
-                id: 3,
-                name: "Túi tote",
-                price: "300.000",
-                image: "https://cf.shopee.vn/file/6f4b8b1f1b1a6c2f3c6b3a4b5c9b9e9a"
-            },
-            {
-                id: 4,
-                name: "Bandana 2",
-                price: "400.000",
-                image: "https://cf.shopee.vn/file/6f4b8b1f1b1a6c2f3c6b3a4b5c9b9e9a"
-            },
-            {
-                id: 5,
-                name: "Áo thun 2",
-                price: "500.000",
-                image: "https://cf.shopee.vn/file/6f4b8b1f1b1a6c2f3c6b3a4b5c9b9e9a"
-            },
-            {
-                id: 6,
-                name: "tất",
-                price: "100.000",
-                image: "https://cf.shopee.vn/file/6f4b8b1f1b1a6c2f3c6b3a4b5c9b9e9a"
-            },
-            ]
-            break
-        }
-    }
-
+    const dataProduct = useQuery({
+        queryKey: ['products'],
+        queryFn: () => productApi.getProduct()
+    })
+    const { data, isLoading } = dataProduct
+    if (isLoading) return <Loading />
 
     return (
         <div>
@@ -59,40 +25,64 @@ const TabCategory = ({ tag }) => {
                 <Typography.Title level={3}>{tag}</Typography.Title>
             </div>
             <Carousel autoplay autoplaySpeed={8000} arrows infinite={true}>
-                <div className='m-0 h-96 text-white leading-4 text-lg text-center bg-green-500'>
+                <div className='m-0 h-min text-white leading-4 text-lg text-center bg-gray-300'>
                     <div className='grid grid-cols-2 grid-rows-2 gap-4 px-8 py-4 mt-4'>
-                        {dataTag.slice(0, 4).map(item => {
+                        {data?.data.data.slice(0, 4).map(item => {
                             return (
                                 <div key={item.id} className='flex flex-col items-center'>
                                     <Card
                                         hoverable
-                                        style={{ width: 240 }}
-                                        cover={<img alt="example" src={item?.image} />}
+                                        style={{ width: 240, height: 360 }}
+                                        cover={<img alt="example" src={item?.imageUrl} className='object-contain h-60' />}
                                         onClick={() => navigate(`/product/${item.id}`)}
                                     >
-                                        <Meta title={item.name} description="www.instagram.com" />
+                                        <Meta title={item.name} description={item.description} />
+                                        <Select defaultValue="Select size" className='mt-2 w-40' onClick={(e) => e.stopPropagation()} onChange={(value) => setSelectedSizes(prev => ({ ...prev, [item.id]: value }))}>
+                                            <Option value="S">S</Option>
+                                            <Option value="M">M</Option>
+                                            <Option value="L">L</Option>
+                                        </Select>
                                     </Card>
-                                    <Button onClick={() => addToCart(item)} className='mt-2'>Add to cart</Button>
+                                    {errors[item.id] && <Typography.Text>{errors[item.id]}</Typography.Text>}
+                                    <Button onClick={() => {
+                                        if (!selectedSizes[item.id]) {
+                                            setErrors(prev => ({ ...prev, [item.id]: `Please select a size for ${item.name} before adding to cart` }))
+                                            return
+                                        }
+                                        addToCart({ ...item, size: selectedSizes[item.id] })
+                                        setErrors(prev => ({ ...prev, [item.id]: null }))
+                                    }} className='mt-2'>Add to cart</Button>
                                 </div>
                             )
                         })}
                     </div>
                 </div>
-                <div className='m-0 h-96 text-white leading-4 text-lg text-center bg-green-500'>
+                <div className='m-0 h-min text-white leading-4 text-lg text-center bg-gray-300'>
                     <div className='grid grid-cols-2 grid-rows-2 gap-4 px-8 py-4 mt-4'>
-                        {dataTag.slice(4, 6).map(item => {
+                        {data?.data.data.slice(4, 6).map(item => {
                             return (
                                 <div key={item.id} className='flex flex-col items-center'>
                                     <Card
                                         hoverable
-                                        style={{ width: 240 }}
-                                        cover={<img alt="example" src={item?.url} />}
+                                        style={{ width: 240, height: 360 }}
+                                        cover={<img alt="example" src={item?.imageUrl} className='object-contain h-60' />}
                                         onClick={() => navigate(`/product/${item.id}`)}
                                     >
-                                        <Meta title={item.name} description="www.instagram.com" />
+                                        <Meta title={item.name} description={item.description} />
+                                        <Select defaultValue="Select size" className='mt-2 w-40' onClick={(e) => e.stopPropagation()} onChange={(value) => setSelectedSizes(prev => ({ ...prev, [item.id]: value }))}>
+                                            <Option value="S">S</Option>
+                                            <Option value="M">M</Option>
+                                            <Option value="L">L</Option>
+                                        </Select>
                                     </Card>
+                                    {errors[item.id] && <Typography.Text>{errors[item.id]}</Typography.Text>}
                                     <Button onClick={() => {
-                                        addToCart(item)
+                                        if (!selectedSizes[item.id]) {
+                                            setErrors(prev => ({ ...prev, [item.id]: `Please select a size for ${item.name} before adding to cart` }))
+                                            return
+                                        }
+                                        addToCart({ ...item, size: selectedSizes[item.id] })
+                                        setErrors(prev => ({ ...prev, [item.id]: null }))
                                     }} className='mt-2'>Add to cart</Button>
                                 </div>
                             )

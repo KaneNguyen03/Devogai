@@ -1,6 +1,6 @@
 import { useContext, useState } from "react"
 import { CartContext } from "../context/cart-context"
-import { Button, Card, Typography, Modal, Form, Input, Radio } from "antd"
+import { Button, Card, Typography, Modal, Form, Input, Radio, Select } from "antd"
 import { DeleteOutlined, MinusOutlined, PlusOutlined } from "@ant-design/icons"
 import { useAuth } from "../hooks/use-auth"
 
@@ -8,7 +8,7 @@ const { Item } = Form
 const { Meta } = Card
 
 const Purchase = () => {
-    const { cartItems, removeFromCart, updateQuantity } = useContext(CartContext)
+    const { cartItems, removeFromCart, updateQuantity, updateSize } = useContext(CartContext)
     const { user } = useAuth()
     const [form] = Form.useForm()
     const [paymentMethod, setPaymentMethod] = useState("COD")
@@ -38,7 +38,7 @@ const Purchase = () => {
                 <Typography.Title>Purchase</Typography.Title>
             </div>
             <div className="flex justify-between">
-                <div className="w-3/5 pr-4">
+                <div className="w-3/5 pr-4 max-h-screen overflow-y-scroll">
                     <div className="bg-gray-200 p-4">
                         {cartItems.length > 0 ? (
                             cartItems.map((item) => (
@@ -46,9 +46,18 @@ const Purchase = () => {
                                     <Card
                                         hoverable
                                         className="w-full"
-                                        cover={<img alt={item.name} src={item.image} />}
+                                        cover={<img alt={item.name} src={item.imageUrl} className="h-40 object-contain" />}
                                     >
                                         <Meta title={item.name} description={`$${item.price}`} />
+                                        <Select
+                                            defaultValue={item.size || "Select size"}
+                                            className='mt-2 w-40'
+                                            onChange={(value) => updateSize(item.id, value)}
+                                        >
+                                            <Option value="S">S</Option>
+                                            <Option value="M">M</Option>
+                                            <Option value="L">L</Option>
+                                        </Select>
                                     </Card>
                                     <div className="p-4 flex flex-col items-center justify-center">
                                         <div className="flex items-center gap-2">

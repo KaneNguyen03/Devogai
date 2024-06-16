@@ -32,8 +32,14 @@ export const CartProvider = ({ children }) => {
             item.id === itemId ? { ...item, quantity: item.quantity + quantity } : item
         ))
     }
+
+    const updateSize = (itemId, size) => {
+        setCartItems(prevItems => prevItems.map(item =>
+            item.id === itemId ? { ...item, size: size } : item
+        ))
+    }
     return (
-        <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, updateQuantity }}>
+        <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, updateQuantity, updateSize }}>
             {children}
         </CartContext.Provider>
     )

@@ -1,18 +1,18 @@
-import authApi from '@/services/auth'
-import axios from 'axios'
+import authApi from "@/services/auth"
+import axios from "axios"
 
-export const TOKEN_KEY = 'fams_token'
-export const REFRESH_TOKEN_KEY = 'fams_refresh_token'
+export const TOKEN_KEY = "token"
+export const REFRESH_TOKEN_KEY = "refresh_token"
 
 const apiInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_SECRET
+  baseURL: import.meta.env.VITE_API_SECRET,
 })
 
 apiInstance.interceptors.request.use(
   async (config) => {
     const token = localStorage.getItem(TOKEN_KEY)
     if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`
+      config.headers["Authorization"] = `${token}`
     }
     return config
   },
@@ -23,7 +23,7 @@ apiInstance.interceptors.request.use(
 
 export const logOutApp = async () => {
   const resp = await authApi.logOut()
-  if (resp.msg === 'logout') {
+  if (resp.msg === "logout") {
     localStorage.clear()
     window.location.reload()
   }

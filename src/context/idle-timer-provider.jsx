@@ -1,5 +1,5 @@
-import { useAuth } from '@/hooks/use-auth'
 import { IdleTimerProvider } from 'react-idle-timer'
+import { useAuth } from '../hooks/use-auth'
 
 export default function IdleTimerWrapProvider({ children }) {
   const { logoutMutation } = useAuth()

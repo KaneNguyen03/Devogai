@@ -30,7 +30,7 @@ export default function Login() {
                   name="username"
                   rules={[
                     { required: true, message: ERROR_MESSAGES.EM30 },
-                    { min: 6, message: ERROR_MESSAGES.EM31 }
+                    { min: 3, message: ERROR_MESSAGES.EM31 }
                   ]}
                 >
                   <Input size="large" prefix={<UserOutlined />} placeholder="Username" />
