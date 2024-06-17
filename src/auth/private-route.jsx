@@ -7,7 +7,6 @@ import { Navigate } from 'react-router-dom'
 
 export default function PrivateRoute({ children, roles }) {
   const { user } = useAuth()
-  console.log("🚀 Kha ne ~ user:", user)
 
   const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY)
   const tokenKey = localStorage.getItem(TOKEN_KEY)

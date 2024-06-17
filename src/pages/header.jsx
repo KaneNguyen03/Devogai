@@ -13,7 +13,7 @@ import { CartContext } from '../context/cart-context'
 import { useAuth } from '../hooks/use-auth'
 
 export default function Header(isLoginPage) {
-  const { cartItems, removeFromCart, updateQuantity, updateSize } = useContext(CartContext)
+  const { cartItems, removeFromCart, updateQuantity, updateSize, updateDesign } = useContext(CartContext)
   console.log("🚀 Kha ne ~ cartItems:", cartItems)
   const navigate = useNavigate()
   const { logoutMutation, user } = useAuth()
@@ -75,18 +75,30 @@ export default function Header(isLoginPage) {
             <Card
               hoverable
               style={{ width: 240 }}
-              cover={<img alt="example" src={item?.imageUrl} className='h-24 object-contain'/>}
+              cover={<img alt="example" src={item?.imageUrl} className='h-24 object-contain' />}
             >
               <Meta description={item.description}></Meta>
-              <Select
-                defaultValue={item.size}
-                className='mt-2 w-40'
-                onChange={(value) => updateSize(item.id, value)}
-              >
-                <Option value="S">S</Option>
-                <Option value="M">M</Option>
-                <Option value="L">L</Option>
-              </Select>
+              <div className='flex gap-4'>
+                <Select
+                  defaultValue={item.size}
+                  className='mt-2 w-40'
+                  onChange={(value) => updateSize(item.id, value)}
+                >
+                  <Option value="S">S</Option>
+                  <Option value="M">M</Option>
+                  <Option value="L">L</Option>
+                  <Option value="XL">XL</Option>
+                </Select>
+                <Select
+                  defaultValue={'Design ' + item.design}
+                  className='mt-2 w-40'
+                  onChange={(value) => updateDesign(item.id, value)}
+                >
+                  <Option value="1">Design 1</Option>
+                  <Option value="2">Design 2</Option>
+                  <Option value="3">Design 3</Option>
+                </Select>
+              </div>
             </Card>
             <div className='p-4 flex flex-col items-center gap-2'>
               <div>

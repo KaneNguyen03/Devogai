@@ -3,12 +3,13 @@ import { CartContext } from "../context/cart-context"
 import { Button, Card, Typography, Modal, Form, Input, Radio, Select } from "antd"
 import { DeleteOutlined, MinusOutlined, PlusOutlined } from "@ant-design/icons"
 import { useAuth } from "../hooks/use-auth"
+import orderApi from "../services/order"
 
 const { Item } = Form
 const { Meta } = Card
 
 const Purchase = () => {
-    const { cartItems, removeFromCart, updateQuantity, updateSize } = useContext(CartContext)
+    const { cartItems, removeFromCart, updateQuantity, updateSize, updateDesign } = useContext(CartContext)
     const { user } = useAuth()
     const [form] = Form.useForm()
     const [paymentMethod, setPaymentMethod] = useState("COD")
@@ -17,10 +18,27 @@ const Purchase = () => {
         setPaymentMethod(e.target.value)
     }
 
+
     const onFinish = (values) => {
-        console.log("Received values:", values)
+        const order = {
+            name: values.name,
+            address: values.address,
+            phone: values.phone,
+            totalAmount: calculateTotalPrice().toFixed(2).toString()
+        }
+
+        const orderDetails = cartItems
+
+        const dataToSubmit = {
+            order: order,
+            orderDetails: orderDetails
+        }
+
+        orderApi.createOrder(dataToSubmit)
+        console.log("Received values:", dataToSubmit)
         // Handle form submission logic here (e.g., send data to server)
     }
+
 
     const onFinishFailed = (errorInfo) => {
         console.log("Failed:", errorInfo)
@@ -49,15 +67,26 @@ const Purchase = () => {
                                         cover={<img alt={item.name} src={item.imageUrl} className="h-40 object-contain" />}
                                     >
                                         <Meta title={item.name} description={`$${item.price}`} />
-                                        <Select
-                                            defaultValue={item.size || "Select size"}
-                                            className='mt-2 w-40'
-                                            onChange={(value) => updateSize(item.id, value)}
-                                        >
-                                            <Option value="S">S</Option>
-                                            <Option value="M">M</Option>
-                                            <Option value="L">L</Option>
-                                        </Select>
+                                        <div class="flex gap-4">
+                                            <Select
+                                                defaultValue={item.size || "Size"}
+                                                className='mt-2 w-20'
+                                                onChange={(value) => updateSize(item.id, value)}
+                                            >
+                                                <Option value="S">S</Option>
+                                                <Option value="M">M</Option>
+                                                <Option value="L">L</Option>
+                                            </Select>
+                                            <Select
+                                                defaultValue={'Design ' + item.design}
+                                                className='mt-2 w-36'
+                                                onChange={(value) => updateDesign(item.id, value)}
+                                            >
+                                                <Option value="1">Design 1</Option>
+                                                <Option value="2">Design 2</Option>
+                                                <Option value="3">Design 3</Option>
+                                            </Select>
+                                        </div>
                                     </Card>
                                     <div className="p-4 flex flex-col items-center justify-center">
                                         <div className="flex items-center gap-2">
@@ -75,6 +104,7 @@ const Purchase = () => {
                                                     title: 'Are you sure you want to delete this item?',
                                                     onOk: () => removeFromCart(item.id),
                                                 })
+
                                             }}>
                                                 <DeleteOutlined />
                                             </Button>
@@ -131,11 +161,11 @@ const Purchase = () => {
                             <Item label="Payment Method">
                                 <Radio.Group onChange={handlePaymentMethodChange} value={paymentMethod}>
                                     <Radio value="COD">Cash on Delivery</Radio>
-                                    <Radio value="Vnpay">Vnpay</Radio>
+                                    {/* <Radio value="Vnpay">Vnpay</Radio> */}
                                 </Radio.Group>
                             </Item>
                             <Item wrapperCol={{ offset: 0, span: 24 }}>
-                                <Button type="primary" htmlType="submit" block>
+                                <Button type="primary" htmlType="submit" block disabled={cartItems.length <= 0}>
                                     Submit
                                 </Button>
                             </Item>

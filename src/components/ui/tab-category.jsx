@@ -10,6 +10,7 @@ import Loading from "../../components/ui/loading"
 const TabCategory = ({ tag }) => {
     const navigate = useNavigate()
     const [selectedSizes, setSelectedSizes] = useState({})
+    const [selectedDesigns, setSelectedDesigns] = useState({})
     const [errors, setErrors] = useState({})
     const { cartItems, addToCart, removeFromCart } = useContext(CartContext)
     const dataProduct = useQuery({
@@ -34,14 +35,22 @@ const TabCategory = ({ tag }) => {
                                         hoverable
                                         style={{ width: 240, height: 360 }}
                                         cover={<img alt="example" src={item?.imageUrl} className='object-contain h-60' />}
-                                        onClick={() => navigate(`/product/${item.id}`)}
+                                        // onClick={() => navigate(`/product/${item.id}`)}
                                     >
                                         <Meta title={item.name} description={item.description} />
-                                        <Select defaultValue="Select size" className='mt-2 w-40' onClick={(e) => e.stopPropagation()} onChange={(value) => setSelectedSizes(prev => ({ ...prev, [item.id]: value }))}>
-                                            <Option value="S">S</Option>
-                                            <Option value="M">M</Option>
-                                            <Option value="L">L</Option>
-                                        </Select>
+                                        <div className='flex gap-4'>
+                                            <Select defaultValue="Size" className='mt-2 w-20' onClick={(e) => e.stopPropagation()} onChange={(value) => setSelectedSizes(prev => ({ ...prev, [item.id]: value }))}>
+                                                <Option value="S">S</Option>
+                                                <Option value="M">M</Option>
+                                                <Option value="L">L</Option>
+                                                <Option value="XL">XL</Option>
+                                            </Select>
+                                            <Select defaultValue="Design" className='mt-2 w-36' onClick={(e) => e.stopPropagation()} onChange={(value) => setSelectedDesigns(prev => ({ ...prev, [item.id]: value }))}>
+                                                <Option value="1">Design 1</Option>
+                                                <Option value="2">Design 2</Option>
+                                                <Option value="3">Design 3</Option>
+                                            </Select>
+                                        </div>
                                     </Card>
                                     {errors[item.id] && <Typography.Text>{errors[item.id]}</Typography.Text>}
                                     <Button onClick={() => {
@@ -49,7 +58,11 @@ const TabCategory = ({ tag }) => {
                                             setErrors(prev => ({ ...prev, [item.id]: `Please select a size for ${item.name} before adding to cart` }))
                                             return
                                         }
-                                        addToCart({ ...item, size: selectedSizes[item.id] })
+                                        if (!selectedDesigns[item.id]) {
+                                            setErrors(prev => ({ ...prev, [item.id]: `Please select a design for ${item.name} before adding to cart` }))
+                                            return
+                                        }
+                                        addToCart({ ...item, size: selectedSizes[item.id], design: selectedDesigns[item.id] })
                                         setErrors(prev => ({ ...prev, [item.id]: null }))
                                     }} className='mt-2'>Add to cart</Button>
                                 </div>
@@ -66,14 +79,22 @@ const TabCategory = ({ tag }) => {
                                         hoverable
                                         style={{ width: 240, height: 360 }}
                                         cover={<img alt="example" src={item?.imageUrl} className='object-contain h-60' />}
-                                        onClick={() => navigate(`/product/${item.id}`)}
+                                        // onClick={() => navigate(`/product/${item.id}`)}
                                     >
                                         <Meta title={item.name} description={item.description} />
-                                        <Select defaultValue="Select size" className='mt-2 w-40' onClick={(e) => e.stopPropagation()} onChange={(value) => setSelectedSizes(prev => ({ ...prev, [item.id]: value }))}>
-                                            <Option value="S">S</Option>
-                                            <Option value="M">M</Option>
-                                            <Option value="L">L</Option>
-                                        </Select>
+                                        <div className='flex gap-4'>
+                                            <Select defaultValue="Size" className='mt-2 w-20' onClick={(e) => e.stopPropagation()} onChange={(value) => setSelectedSizes(prev => ({ ...prev, [item.id]: value }))}>
+                                                <Option value="S">S</Option>
+                                                <Option value="M">M</Option>
+                                                <Option value="L">L</Option>
+                                                <Option value="XL">XL</Option>
+                                            </Select>
+                                            <Select defaultValue="Design" className='mt-2 w-36' onClick={(e) => e.stopPropagation()} onChange={(value) => setSelectedDesigns(prev => ({ ...prev, [item.id]: value }))}>
+                                                <Option value="1">Design 1</Option>
+                                                <Option value="2">Design 2</Option>
+                                                <Option value="3">Design 3</Option>
+                                            </Select>
+                                        </div>
                                     </Card>
                                     {errors[item.id] && <Typography.Text>{errors[item.id]}</Typography.Text>}
                                     <Button onClick={() => {
@@ -81,7 +102,11 @@ const TabCategory = ({ tag }) => {
                                             setErrors(prev => ({ ...prev, [item.id]: `Please select a size for ${item.name} before adding to cart` }))
                                             return
                                         }
-                                        addToCart({ ...item, size: selectedSizes[item.id] })
+                                        if (!selectedDesigns[item.id]) {
+                                            setErrors(prev => ({ ...prev, [item.id]: `Please select a design for ${item.name} before adding to cart` }))
+                                            return
+                                        }
+                                        addToCart({ ...item, size: selectedSizes[item.id], design: selectedDesigns[item.id] })
                                         setErrors(prev => ({ ...prev, [item.id]: null }))
                                     }} className='mt-2'>Add to cart</Button>
                                 </div>

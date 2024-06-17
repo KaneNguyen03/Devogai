@@ -17,6 +17,7 @@ const getProductById = async (id) => {
 
 const productApi = {
   getProduct,
+  getProductById
 }
 
 export default productApi

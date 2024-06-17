@@ -1,11 +1,26 @@
 import { Button, Card, Carousel, Select, Typography } from 'antd'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import TabCollection from '../components/ui/tab-collection'
+import { useQuery } from 'react-query'
+import productApi from '../services/product'
+import { CartContext } from '../context/cart-context'
 
 const { Option } = Select
 
 const ProductDetail = () => {
-  const [selectedSize, setSelectedSize] = useState('S')
+  const [selectedSizes, setSelectedSizes] = useState('S')
+  const [errors, setErrors] = useState({})
+  const { id } = useParams()
+
+  const { cartItems, addToCart, removeFromCart } = useContext(CartContext)
+
+  const dataProduct = useQuery({
+    queryKey: ['products'],
+    queryFn: () => productApi.getProductById(id)
+  })
+  const currentProduct = dataProduct?.data?.data?.data
+
 
   const handleChange = (value) => {
     setSelectedSize(value)
@@ -33,15 +48,15 @@ const ProductDetail = () => {
         <Card className="rounded shadow-lg p-6" bordered={false}>
           <Typography.Title>Collection 1</Typography.Title>
           <Card.Meta
-            title={<div className="font-bold text-xl p-6">Bandana</div>}
+            title={<div className="font-bold text-xl p-6">{currentProduct?.name}</div>}
             description={
               <div>
                 <p className="text-gray-900 text-xl">
-                  Price: <span className="font-bold">99$</span>
+                  Price: <span className="font-bold">{currentProduct?.price}$</span>
                 </p>
                 <div className="flex items-center mt-4">
                   <p className="text-gray-700 text-sm mr-3">Select size:</p>
-                  <Select defaultValue="S" style={{ width: 120 }} onChange={handleChange}>
+                  <Select defaultValue="S" style={{ width: 120 }} onChange={(value) => setSelectedSizes(value)}>
                     {['S', 'M', 'L', 'XL'].map((size) => (
                       <Option key={size} value={size}>
                         {size}
@@ -49,7 +64,16 @@ const ProductDetail = () => {
                     ))}
                   </Select>
                 </div>
-                <Button type="primary" className="mt-4" block>
+                {errors[currentProduct?.id] && <Typography.Text>{errors[currentProduct?.id]}</Typography.Text>}
+                <Button type="primary" className="mt-4"
+                  onClick={() => {
+                    if (!selectedSizes) {
+                      setErrors(prev => ({ ...prev, [currentProduct?.id]: `Please select a size for ${currentProduct?.name} before adding to cart` }))
+                      return
+                    }
+                    addToCart({ ...currentProduct, size: selectedSizes }); setErrors(prev => ({ ...prev, [currentProduct]: null }))
+                  }}
+                  block>
                   Add to Cart
                 </Button>
               </div>
@@ -60,14 +84,12 @@ const ProductDetail = () => {
       <div>
         <Typography.Title>Description</Typography.Title>
         <Typography.Paragraph>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem
-          repudiandae quo, voluptatibus quaerat quia, quibusdam quos
-          repellendus quasi, nihil voluptates. Quisquam, quo.
+          {currentProduct?.description}
         </Typography.Paragraph>
       </div>
       <div>
         <Typography.Title>Relative product</Typography.Title>
-        <TabCollection tag={"Collection 1"} />
+        <TabCollection tag={"1"} />
       </div>
     </div>
   )
