@@ -1,14 +1,14 @@
-import apiInstance from '@/lib/axios'
+import apiInstance from "@/lib/axios"
 
 const signIn = async (username, password) => {
   try {
     const { data } = await apiInstance.post(import.meta.env.VITE_SIGNIN_API, {
       username,
-      password
+      password,
     })
     return data
   } catch (error) {
-    throw new Error('Invalid username or password')
+    throw new Error("Invalid username or password")
   }
 }
 
@@ -24,7 +24,7 @@ const logOut = async () => {
 const refreshToken = async (refreshToken) => {
   try {
     const resp = await apiInstance.post(import.meta.env.VITE_REFRESH_API, {
-      refreshToken: refreshToken
+      refreshToken: refreshToken,
     })
     return resp.data
   } catch (e) {
@@ -34,7 +34,18 @@ const refreshToken = async (refreshToken) => {
 
 const getCurrentUser = async () => {
   try {
-    const { data } = await apiInstance.get(import.meta.env.VITE_CURRENT_USER_API)
+    const { data } = await apiInstance.get(
+      import.meta.env.VITE_CURRENT_USER_API
+    )
+    return data
+  } catch (error) {
+    return null
+  }
+}
+
+const getUsers = async () => {
+  try {
+    const { data } = await apiInstance.get(import.meta.env.VITE_USER_API)
     return data
   } catch (error) {
     return null
@@ -45,7 +56,8 @@ const authApi = {
   signIn,
   logOut,
   refreshToken,
-  getCurrentUser
+  getCurrentUser,
+  getUsers,
 }
 
 export default authApi

@@ -16,7 +16,7 @@ const AdminNavigator = () => {
             <Button className={isCollapse ? 'mx-4 my-2' : 'mx-2.5 my-2'} type="text" onClick={toggleCollapse}>
                 {isCollapse ? <BarsOutlined className="text-lg" /> : <CloseOutlined className="text-lg" />}
             </Button>
-            <Menu onClick={({ key }) => navigate(key)} className="bg-foreground" mode="inline" items={MenuItemsAdmin} />
+            <Menu onClick={({ key }) => navigate(`/admin/${key}`)} className="bg-foreground" mode="inline" items={MenuItemsAdmin} />
         </Sider>
 
     )

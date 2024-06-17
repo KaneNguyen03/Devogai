@@ -8,6 +8,10 @@ import Login from "../pages/login"
 import NotFound from "../pages/not-found"
 import ProductDetail from "../pages/product-detail"
 import Purchase from "../pages/purchase"
+import SuccessPage from "../pages/success-page"
+import UserManagement from "../pages/user-management"
+import ProductManagement from "../pages/product-management"
+import OrderManagement from "../pages/order-management"
 
 export const ROUTE_PATHS = {
   ROOT: "/",
@@ -44,9 +48,39 @@ export const routes = [
     layout: DefauftLayout,
   },
   {
+    path: `${ROUTE_PATHS.PURCHASE}/success`,
+    name: "success",
+    component: SuccessPage,
+    layout: DefauftLayout,
+  },
+  {
     path: ROUTE_PATHS.ADMIN,
     name: "admin",
     component: Admin,
+    private: true,
+    roles: ["admin"],
+    layout: AdminLayout,
+  },
+  {
+    path: `${ROUTE_PATHS.ADMIN}/user`,
+    name: "user",
+    component: UserManagement,
+    private: true,
+    roles: ["admin"],
+    layout: AdminLayout,
+  },
+  {
+    path: `${ROUTE_PATHS.ADMIN}/product`,
+    name: "product",
+    component: ProductManagement,
+    private: true,
+    roles: ["admin"],
+    layout: AdminLayout,
+  },
+  {
+    path: `${ROUTE_PATHS.ADMIN}/order`,
+    name: "order",
+    component: OrderManagement,
     private: true,
     roles: ["admin"],
     layout: AdminLayout,

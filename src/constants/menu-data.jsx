@@ -49,10 +49,11 @@ export const NavigatorItems = [
 export const MenuItemsAdmin = [
   {
     key: '1',
-    icon: <MailOutlined />,
+    icon: <AppstoreOutlined />,
     label: 'User',
     children: [
-      { key: '11', label: 'Option 1' },
+      { key: '', label: 'Dashboard' },
+      { key: 'user', label: 'User Management' },
     ],
   },
   {
@@ -60,8 +61,7 @@ export const MenuItemsAdmin = [
     icon: <AppstoreOutlined />,
     label: 'Product',
     children: [
-      { key: '21', label: 'Option 1' },
-      { key: '22', label: 'Option 2' },
+      { key: 'product', label: 'Product Management' },
     ],
   },
   {
@@ -69,8 +69,7 @@ export const MenuItemsAdmin = [
     icon: <SettingOutlined />,
     label: 'Order',
     children: [
-      { key: '31', label: 'Option 1' },
-      { key: '32', label: 'Option 2' },
+      { key: 'order', label: 'Order Management' },
     ],
   },
 ]
@@ -79,7 +78,57 @@ export const VIEW_USER_COLS = [
   {
     title: 'ID',
     dataIndex: 'id',
+    width: 60,
+    key: 'id',
+    fixed: 'left',
+    align: 'center',
+    sorter: {
+      compare: (a, b) => a.id.localeCompare(b.id)
+    },
+
+    defaultSortOrder: 'ascend'
+  },
+  {
+    title: 'Name',
+    dataIndex: 'name',
+    width: 100,
+    key: 'name',
+    align: 'center',
+    ellipsis: {
+      showTitle: false
+    },
+    render: (text, value) => (
+      <Link to={ROUTE_PATHS.ADMIN + '/' + value.id}>
+        <Tooltip placement="top" title={text}>
+          <Typography.Text>{text}</Typography.Text>
+        </Tooltip>
+      </Link>
+    )
+  },
+  {
+    title: 'Phone',
+    dataIndex: 'phone',
+    width: 100,
+    key: 'phone',
+    align: 'center'
+  },
+  {
+    title: 'Email',
+    dataIndex: 'email',
     width: 120,
+    key: 'email',
+    align: 'center',
+    ellipsis: {
+      showTitle: false
+    },
+  },
+]
+
+export const VIEW_PRODUCT_COLS = [
+  {
+    title: 'ID',
+    dataIndex: 'id',
+    width: 60,
     key: 'id',
     fixed: 'left',
     align: 'center',
@@ -122,10 +171,67 @@ export const VIEW_USER_COLS = [
     ellipsis: {
       showTitle: false
     },
-    render: (email) => (
-      <Tooltip placement="top" title={email}>
-        {email}
-      </Tooltip>
+  },
+]
+
+export const VIEW_ORDERE_COLS = [
+  {
+    title: 'ID',
+    dataIndex: 'id',
+    width: 60,
+    key: 'id',
+    fixed: 'left',
+    align: 'center',
+    sorter: {
+      compare: (a, b) => a.id.localeCompare(b.id)
+    },
+
+    defaultSortOrder: 'ascend'
+  },
+  {
+    title: 'Customer name',
+    dataIndex: 'name',
+    width: 100,
+    key: 'name',
+    align: 'center'
+  },
+  {
+    title: 'Address',
+    dataIndex: 'address',
+    width: 100,
+    key: 'address',
+    align: 'center'
+  },
+  {
+    title: 'Price',
+    dataIndex: 'totalAmount',
+    width: 100,
+    key: 'totalAmount',
+    align: 'center'
+  },
+  {
+    title: 'status',
+    dataIndex: 'status',
+    width: 100,
+    key: 'status',
+    align: 'center',
+    ellipsis: {
+      showTitle: false
+    },
+    render: (text, value) => (
+      <Link to={ROUTE_PATHS.ADMIN + '/' + value.id}>
+        <Tooltip placement="top" title={text}>
+          <Typography.Text>{text}</Typography.Text>
+        </Tooltip>
+      </Link>
     )
   },
+  {
+    title: 'Date',
+    dataIndex: 'createdAt',
+    width: 100,
+    key: 'createdAt',
+    align: 'center'
+  },
+
 ]

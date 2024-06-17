@@ -1,15 +1,17 @@
+import { DeleteOutlined, MinusOutlined, PlusOutlined } from "@ant-design/icons"
+import { Button, Card, Form, Input, Modal, Radio, Select, Typography, notification } from "antd"
 import { useContext, useState } from "react"
 import { CartContext } from "../context/cart-context"
-import { Button, Card, Typography, Modal, Form, Input, Radio, Select } from "antd"
-import { DeleteOutlined, MinusOutlined, PlusOutlined } from "@ant-design/icons"
 import { useAuth } from "../hooks/use-auth"
 import orderApi from "../services/order"
+import { useNavigate } from "react-router-dom"
 
 const { Item } = Form
 const { Meta } = Card
 
 const Purchase = () => {
     const { cartItems, removeFromCart, updateQuantity, updateSize, updateDesign } = useContext(CartContext)
+    const navigate = useNavigate()
     const { user } = useAuth()
     const [form] = Form.useForm()
     const [paymentMethod, setPaymentMethod] = useState("COD")
@@ -18,8 +20,7 @@ const Purchase = () => {
         setPaymentMethod(e.target.value)
     }
 
-
-    const onFinish = (values) => {
+    const onFinish = async (values) => {
         const order = {
             name: values.name,
             address: values.address,
@@ -34,8 +35,20 @@ const Purchase = () => {
             orderDetails: orderDetails
         }
 
-        orderApi.createOrder(dataToSubmit)
-        console.log("Received values:", dataToSubmit)
+        const data = await orderApi.createOrder(dataToSubmit)
+        if (data?.data.statusCode === 201) {
+            notification.success({
+                message: data.message,
+                description: "You have ordered successfully!",
+            })
+            navigate("/purchase/success")
+        }
+        else {
+            notification.error({
+                message: data.message,
+                description: "Please try again!",
+            })
+        }
         // Handle form submission logic here (e.g., send data to server)
     }
 
@@ -133,7 +146,7 @@ const Purchase = () => {
                             form={form}
                             name="purchaseForm"
                             initialValues={user ? { name: user.name, address: user.address, phone: user.phone } : null}
-                            onFinish={onFinish}
+                            onFinish={(values) => onFinish(values)}
                             onFinishFailed={onFinishFailed}
                             layout="vertical"
                         >

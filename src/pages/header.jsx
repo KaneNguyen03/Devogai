@@ -14,7 +14,6 @@ import { useAuth } from '../hooks/use-auth'
 
 export default function Header(isLoginPage) {
   const { cartItems, removeFromCart, updateQuantity, updateSize, updateDesign } = useContext(CartContext)
-  console.log("🚀 Kha ne ~ cartItems:", cartItems)
   const navigate = useNavigate()
   const { logoutMutation, user } = useAuth()
 

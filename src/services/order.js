@@ -1,6 +1,8 @@
-const getOrder = async () => {
+import apiInstance from "@/lib/axios"
+
+const getOrders = async () => {
   try {
-    const data = await apiInstance.get(import.meta.env.VITE_GET_PRODUCT_API)
+    const data = await apiInstance.get(import.meta.env.VITE_ORDER_API)
     return data
   } catch {}
 }
@@ -8,7 +10,7 @@ const getOrder = async () => {
 const createOrder = async (data) => {
   try {
     const response = await apiInstance.post(
-      import.meta.env.VITE_GET_PRODUCT_API,
+      import.meta.env.VITE_ORDER_API,
       data
     )
     return response
@@ -16,8 +18,8 @@ const createOrder = async (data) => {
 }
 
 const orderApi = {
-  getOrder,
-  createOrder
+  getOrders,
+  createOrder,
 }
 
 export default orderApi
