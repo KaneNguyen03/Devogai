@@ -18,7 +18,6 @@ const TabCategory = ({ tag }) => {
         queryFn: () => productApi.getProduct()
     })
     const { data, isLoading } = dataProduct
-    console.log("🚀 Kha ne ~ data:", data)
     if (isLoading) return <Loading />
 
     return (

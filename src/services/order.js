@@ -1,10 +1,14 @@
 import apiInstance from "@/lib/axios"
 
-const getOrders = async () => {
+const getOrders = async (param) => {
   try {
-    const data = await apiInstance.get(import.meta.env.VITE_ORDER_API)
-    return data
-  } catch {}
+    const { page_index, page_size } = param
+    const queryParams = `?page_index=${page_index}&page_size=${page_size}`
+    const data = await apiInstance.get(import.meta.env.VITE_ORDER_API + queryParams)
+    return data.data
+  } catch (error) {
+    throw new Error
+  }
 }
 
 const createOrder = async (data) => {
@@ -14,12 +18,40 @@ const createOrder = async (data) => {
       data
     )
     return response
-  } catch {}
+  } catch (error) {
+    throw new Error
+  }
+}
+
+const updateOrder = async (data) => {
+  try {
+    const response = await apiInstance.put(
+      `${import.meta.env.VITE_ORDER_API}/${data.id}`,
+      data
+    )
+    return response
+  } catch (error) {
+    throw new Error
+  }
+}
+
+const gerOrderDetails = async (data) => {
+  try {
+    const response = await apiInstance.put(
+      `api/orders/${data.id}/order-detail`,
+      data
+    )
+    return response
+  } catch (error) {
+    throw new Error
+  }
 }
 
 const orderApi = {
   getOrders,
   createOrder,
+  updateOrder,
+  gerOrderDetails
 }
 
 export default orderApi

@@ -8,76 +8,87 @@ import Loading from "../components/ui/loading"
 const COLORS = ['#0088FE', '#00C49F']
 
 const Admin = () => {
-    const { data, isLoading } = useGetOrders()
+    const { data, isLoading } = useGetOrders({ page_index: 1, page_size: 99999 })
 
-
-    const totalOrders = data?.data.length || 0
     // const totalPendingOrders = data?.data.filter(order => order.status === 'pending').length || 0
     // const totalSuccessfulOrders = data?.data.filter(order => order.status === 'success').length || 0
     if (isLoading) {
         return <Loading />
     }
 
-    const stats = [
-        { title: 'Total Salary', value: '$5000' },
-        { title: 'Total Money Pending', value: '$2000' },
-        // { title: 'Total Order Pending', value: totalPendingOrders },
-        // { title: 'Total Order Success', value: totalSuccessfulOrders },
-        { title: 'Total Orders', value: totalOrders },
-    ]
+    const groupedData = data?.data.reduce((acc, order) => {
+        const date = new Date(order.date).getDate()
+        if (!acc[date]) {
+            acc[date] = 0
+        }
+        acc[date] += order.totalAmount
+        return acc
+    }, {})
 
-    const data2 = [
-        { name: 'Jan', revenue: 4000 },
-        { name: 'Feb', revenue: 3000 },
-        { name: 'Mar', revenue: 2000 },
-        { name: 'Apr', revenue: 2780 },
-        { name: 'May', revenue: 1890 },
-        { name: 'Jun', revenue: 2390 },
-        { name: 'Jul', revenue: 3490 },
-    ]
-
-
-    const pieData = [
-        { name: 'Income', value: 5000 },
-        { name: 'Pending', value: 2000 },
-    ]
-
-
+    const chartData = Object.keys(groupedData).map(date => ({
+        name: date,
+        revenue: groupedData[date]
+    }))
 
     return (
         <div>
             <SectionHeader title="Dashboard" />
             <div className=''>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
-                    {stats.map((stat, index) => (
-                        <div key={index} className="p-4 border rounded-lg shadow-sm bg-white">
-                            <h2 className="font-bold text-lg">{stat.title}</h2>
-                            <p className="text-gray-500 mt-2">{stat.value}</p>
-                        </div>
-                    ))}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mt-4">
+
+                    <div className="p-4 border rounded-lg shadow-sm bg-white">
+                        <h2 className="font-bold text-lg">Total Salary</h2>
+                        <p className="text-gray-500 mt-2">{data?.data
+                            .filter(order => order.status.toLowerCase() === 'completed')
+                            .reduce((total, order) => total + order.totalAmount, 0)}$</p>
+                    </div>
+                    <div className="p-4 border rounded-lg shadow-sm bg-white">
+                        <h2 className="font-bold text-lg">Total Money Pending</h2>
+                        <p className="text-gray-500 mt-2">{data?.data
+                            .filter(order => order.status.toLowerCase() === 'pending')
+                            .reduce((total, order) => total + order.totalAmount, 0)}$</p>
+                    </div>
+                    <div className="p-4 border rounded-lg shadow-sm bg-white">
+                        <h2 className="font-bold text-lg">Total Orders</h2>
+                        <p className="text-gray-500 mt-2">{data?.data.length}</p>
+                    </div>
+                    <div className="p-4 border rounded-lg shadow-sm bg-white">
+                        <h2 className="font-bold text-lg">Order Success</h2>
+                        <p className="text-gray-500 mt-2">{data?.data.filter(order => order.status.toLowerCase() === 'completed').length}</p>
+                    </div>
+                    <div className="p-4 border rounded-lg shadow-sm bg-white">
+                        <h2 className="font-bold text-lg">Order Pending</h2>
+                        <p className="text-gray-500 mt-2">{data?.data.filter(order => order.status.toLowerCase() === 'pending').length}</p>
+                    </div>
+
                 </div>
                 <div className='flex p-4 gap-4 items-center justify-around'>
 
-                    <LineChart width={500} height={300} data={data2}>
+                    <LineChart width={500} height={300} data={chartData}>
                         <Line type="monotone" dataKey="revenue" stroke="#8884d8" />
                         <CartesianGrid stroke="#ccc" />
                         <XAxis dataKey="name" />
-                        <YAxis />
-                        <Tooltip />
+                        <YAxis tickFormatter={(tick) => `$${tick}`} />
+                        <Tooltip formatter={(value) => `$${value}`} />
                     </LineChart>
-
                     <PieChart width={400} height={400}>
                         <Pie
-                            data={pieData}
+                            data={[
+                                { name: "Success", value: data?.data.filter(order => order.status.toLowerCase() === 'completed').length },
+                                { name: "Pending", value: data?.data.filter(order => order.status.toLowerCase() === 'pending').length }
+                            ]}
                             cx={200}
                             cy={200}
                             labelLine={false}
                             label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
-                            outerRadius={80}
+                            outerRadius={140}
                             fill="#8884d8"
                             dataKey="value"
                         >
-                            {pieData.map((entry, index) => (
+                            {[
+                                { name: "Success", value: data?.data.filter(order => order.status.toLowerCase() === 'completed').length },
+                                { name: "Pending", value: data?.data.filter(order => order.status.toLowerCase() === 'pending').length }
+                            ].map((entry, index) => (
                                 <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                             ))}
                         </Pie>

@@ -1,7 +1,4 @@
-import { ROUTE_PATHS } from "@/router"
-import { AppstoreOutlined, MailOutlined, ReadOutlined, SettingOutlined, UserOutlined } from "@ant-design/icons"
-import { Dropdown, Tag, Tooltip, Typography } from "antd"
-import { Link } from "react-router-dom"
+import { AppstoreOutlined, ReadOutlined, SettingOutlined, UserOutlined } from "@ant-design/icons"
 
 export const NavigatorItems = [
   {
@@ -97,13 +94,6 @@ export const VIEW_USER_COLS = [
     ellipsis: {
       showTitle: false
     },
-    render: (text, value) => (
-      <Link to={ROUTE_PATHS.ADMIN + '/' + value.id}>
-        <Tooltip placement="top" title={text}>
-          <Typography.Text>{text}</Typography.Text>
-        </Tooltip>
-      </Link>
-    )
   },
   {
     title: 'Phone',
@@ -135,46 +125,49 @@ export const VIEW_PRODUCT_COLS = [
     sorter: {
       compare: (a, b) => a.id.localeCompare(b.id)
     },
-
     defaultSortOrder: 'ascend'
   },
   {
-    title: 'Full Name',
-    dataIndex: 'fullName',
+    title: 'Product name',
+    dataIndex: 'name',
     width: 100,
     key: 'name',
-    align: 'center',
-    ellipsis: {
-      showTitle: false
-    },
-    render: (text, value) => (
-      <Link to={ROUTE_PATHS.ADMIN + '/' + value.id}>
-        <Tooltip placement="top" title={text}>
-          <Typography.Text>{text}</Typography.Text>
-        </Tooltip>
-      </Link>
-    )
-  },
-  {
-    title: 'Phone',
-    dataIndex: 'phone',
-    width: 100,
-    key: 'phone',
     align: 'center'
   },
   {
-    title: 'Email',
-    dataIndex: 'email',
-    width: 120,
-    key: 'email',
+    title: 'Description',
+    dataIndex: 'description',
+    width: 100,
+    key: 'description',
+    align: 'center'
+  },
+  {
+    title: 'Price',
+    dataIndex: 'price',
+    width: 100,
+    key: 'price',
+    align: 'center'
+  },
+  {
+    title: 'status',
+    dataIndex: 'status',
+    width: 100,
+    key: 'status',
     align: 'center',
-    ellipsis: {
-      showTitle: false
+    sorter: {
+      compare: (a, b) => a.status.localeCompare(b.status)
     },
+  },
+  {
+    title: 'Date',
+    dataIndex: 'createdAt',
+    width: 100,
+    key: 'createdAt',
+    align: 'center'
   },
 ]
 
-export const VIEW_ORDERE_COLS = [
+export const VIEW_ORDER_COLS = [
   {
     title: 'ID',
     dataIndex: 'id',
@@ -215,16 +208,9 @@ export const VIEW_ORDERE_COLS = [
     width: 100,
     key: 'status',
     align: 'center',
-    ellipsis: {
-      showTitle: false
+    sorter: {
+      compare: (a, b) => a.status.localeCompare(b.status)
     },
-    render: (text, value) => (
-      <Link to={ROUTE_PATHS.ADMIN + '/' + value.id}>
-        <Tooltip placement="top" title={text}>
-          <Typography.Text>{text}</Typography.Text>
-        </Tooltip>
-      </Link>
-    )
   },
   {
     title: 'Date',
@@ -233,5 +219,4 @@ export const VIEW_ORDERE_COLS = [
     key: 'createdAt',
     align: 'center'
   },
-
 ]
