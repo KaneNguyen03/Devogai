@@ -80,24 +80,24 @@ const Purchase = () => {
                                         cover={<img alt={item.name} src={item.imageUrl} className="h-40 object-contain" />}
                                     >
                                         <Meta title={item.name} description={`$${item.price}`} />
-                                        <div class="flex gap-4">
+                                        <div className="flex gap-4">
                                             <Select
                                                 defaultValue={item.size || "Size"}
                                                 className='mt-2 w-20'
                                                 onChange={(value) => updateSize(item.id, value)}
                                             >
-                                                <Option value="S">S</Option>
-                                                <Option value="M">M</Option>
-                                                <Option value="L">L</Option>
+                                                <Select.Option value="S">S</Select.Option>
+                                                <Select.Option value="M">M</Select.Option>
+                                                <Select.Option value="L">L</Select.Option>
                                             </Select>
                                             <Select
                                                 defaultValue={'Design ' + item.design}
                                                 className='mt-2 w-36'
                                                 onChange={(value) => updateDesign(item.id, value)}
                                             >
-                                                <Option value="1">Design 1</Option>
-                                                <Option value="2">Design 2</Option>
-                                                <Option value="3">Design 3</Option>
+                                                <Select.Option value="1">Design 1</Select.Option>
+                                                <Select.Option value="2">Design 2</Select.Option>
+                                                <Select.Option value="3">Design 3</Select.Option>
                                             </Select>
                                         </div>
                                     </Card>

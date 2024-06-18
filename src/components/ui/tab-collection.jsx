@@ -1,11 +1,25 @@
+import { useQuery } from '@tanstack/react-query'
 import { Button, Card, Carousel, Select, Typography } from 'antd'
 import Meta from 'antd/es/card/Meta'
 import React, { useContext, useState } from 'react'
-import { CartContext } from '../../context/cart-context'
 import { useNavigate } from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query'
+import { CartContext } from '../../context/cart-context'
 import productApi from '../../services/product'
 import Loading from './loading'
+import Shirt1 from "../../assets/T-shirt_1.png"
+import Shirt2 from "../../assets/T-shirt_2.png"
+import Shirt3 from "../../assets/T-shirt_3.png"
+import Shirt4 from "../../assets/T-shirt_4.png"
+import Shirt5 from "../../assets/T-shirt_5.png"
+import Shirt6 from "../../assets/T-shirt_6.png"
+import Badana1 from "../../assets/Bandana_1.png"
+import Badana2 from "../../assets/Bandana_2.png"
+import Sock1 from "../../assets/Socks_1.png"
+import Sock2 from "../../assets/Socks_2.png"
+import Sock3 from "../../assets/Socks_3.png"
+import Tote1 from "../../assets/tote_1.png"
+import Tote2 from "../../assets/tote_2.png"
+import Tote3 from "../../assets/tote_3.png"
 
 const { Option } = Select
 
@@ -29,41 +43,32 @@ const TabCollection = ({ tag }) => {
         case 1: {
             dataTag = [{
                 id: 1,
-                name: "Áo thun 1",
-                price: "100.000",
+                name: "Shirt collection 1",
+                size: 4,
                 image: [{
-                    url: "https://xuongmayvict.vn/wp-content/uploads/2023/07/cach-chup-hinh-san-pham-quan-ao-dep-2.png",
-                    tag: "Mẫu 1",
+                    url: Shirt1,
+                    tag: "Design 1",
                 },
                 {
-                    url: "https://tngfashion.vn/image/catalog/2021/menu_nu1.jpg",
-                    tag: "Mẫu 2",
+                    url: Shirt2,
+                    tag: "Design 2",
 
                 },
                 {
-                    url: "https://file.hstatic.net/1000304105/article/quan-ao-tre-em_7ae47d26dada4a58a306de513927a510.jpg",
-                    tag: "Mẫu 3",
+                    url: Shirt3,
+                    tag: "Design 3",
 
                 }]
             },
             {
                 id: 2,
-                name: "Bandana 1",
-                price: "200.000",
+                name: "Bandana collection 1",
+                size: 1,
                 image: [{
-                    url: "https://xuongmayvict.vn/wp-content/uploads/2023/07/cach-chup-hinh-san-pham-quan-ao-dep-2.png",
-                    tag: "Mẫu 1",
-                },
-                {
-                    url: "https://tngfashion.vn/image/catalog/2021/menu_nu1.jpg",
-                    tag: "Mẫu 2",
+                    url: Badana1,
+                    tag: "Design 1",
+                }],
 
-                },
-                {
-                    url: "https://file.hstatic.net/1000304105/article/quan-ao-tre-em_7ae47d26dada4a58a306de513927a510.jpg",
-                    tag: "Mẫu 3",
-
-                }]
             },]
             mappingItemProduct[0] = data?.data.data[0]
             mappingItemProduct[1] = data?.data.data[1]
@@ -73,39 +78,29 @@ const TabCollection = ({ tag }) => {
             dataTag = [{
                 id: 3,
                 name: "Túi tote",
-                price: "300.000",
+                size: 1,
                 image: [{
-                    url: "https://xuongmayvict.vn/wp-content/uploads/2023/07/cach-chup-hinh-san-pham-quan-ao-dep-2.png",
-                    tag: "Mẫu 1",
+                    url: Tote1,
+                    tag: "Design 1",
                 },
                 {
-                    url: "https://tngfashion.vn/image/catalog/2021/menu_nu1.jpg",
-                    tag: "Mẫu 2",
+                    url: Tote2,
+                    tag: "Design 2",
 
                 },
                 {
-                    url: "https://file.hstatic.net/1000304105/article/quan-ao-tre-em_7ae47d26dada4a58a306de513927a510.jpg",
-                    tag: "Mẫu 3",
+                    url: Tote3,
+                    tag: "Design 3",
 
                 }]
             },
             {
                 id: 4,
-                name: "Bandana 2",
-                price: "400.000",
+                name: "Bandana collection 2",
+                size: 1,
                 image: [{
-                    url: "https://xuongmayvict.vn/wp-content/uploads/2023/07/cach-chup-hinh-san-pham-quan-ao-dep-2.png",
-                    tag: "Mẫu 1",
-                },
-                {
-                    url: "https://tngfashion.vn/image/catalog/2021/menu_nu1.jpg",
-                    tag: "Mẫu 2",
-
-                },
-                {
-                    url: "https://file.hstatic.net/1000304105/article/quan-ao-tre-em_7ae47d26dada4a58a306de513927a510.jpg",
-                    tag: "Mẫu 3",
-
+                    url: Badana2,
+                    tag: "Design 1",
                 }]
             },]
             mappingItemProduct[0] = data?.data.data[2]
@@ -115,39 +110,39 @@ const TabCollection = ({ tag }) => {
         case 3: {
             dataTag = [{
                 id: 5,
-                name: "Áo thun 2",
-                price: "500.000",
+                name: "Shirt collection 2",
+                size: 4,
                 image: [{
-                    url: "https://xuongmayvict.vn/wp-content/uploads/2023/07/cach-chup-hinh-san-pham-quan-ao-dep-2.png",
-                    tag: "Mẫu 1",
+                    url: Shirt4,
+                    tag: "Design 1",
                 },
                 {
-                    url: "https://tngfashion.vn/image/catalog/2021/menu_nu1.jpg",
-                    tag: "Mẫu 2",
+                    url: Shirt5,
+                    tag: "Design 2",
 
                 },
                 {
-                    url: "https://file.hstatic.net/1000304105/article/quan-ao-tre-em_7ae47d26dada4a58a306de513927a510.jpg",
-                    tag: "Mẫu 3",
+                    url: Shirt6,
+                    tag: "Design 3",
 
                 }]
             },
             {
                 id: 6,
-                name: "tất",
-                price: "100.000",
+                name: "Socks",
+                size: 1,
                 image: [{
-                    url: "https://xuongmayvict.vn/wp-content/uploads/2023/07/cach-chup-hinh-san-pham-quan-ao-dep-2.png",
-                    tag: "Mẫu 1",
+                    url: Sock1,
+                    tag: "Design 1",
                 },
                 {
-                    url: "https://tngfashion.vn/image/catalog/2021/menu_nu1.jpg",
-                    tag: "Mẫu 2",
+                    url: Sock2,
+                    tag: "Design 2",
 
                 },
                 {
-                    url: "https://file.hstatic.net/1000304105/article/quan-ao-tre-em_7ae47d26dada4a58a306de513927a510.jpg",
-                    tag: "Mẫu 3",
+                    url: Sock3,
+                    tag: "Design 3",
 
                 }]
             },]
@@ -162,23 +157,23 @@ const TabCollection = ({ tag }) => {
                 <Typography.Title level={3}>{"Collection " + tag}</Typography.Title>
             </div>
             <Carousel autoplay autoplaySpeed={8000} arrows infinite={true}>
-                <div className='m-0 h-min text-white leading-4 text-lg text-center bg-gray-300'>
-                    <div key={mappingItemProduct[0]?.id} className='flex px-16 py-8 h-[90%]'>
+                <div className='m-0 h-min text-white leading-4 text-lg text-center '>
+                    <div key={mappingItemProduct[0]?.id} className='flex px-16 py-8 h-[90%] justify-center items-center gap-40'>
                         <Carousel arrows infinite={true} className='h-full w-[360px]'>
                             {dataTag[0]?.image.map((item, index) =>
-                                <div className='px-4 h-full text-white leading-4 text-lg text-center bg-gray-300 w-[460px]' key={index}>
+                                <div className='px-4 h-full text-white leading-4 text-lg text-center w-[460px]' key={index}>
                                     <Card
                                         hoverable
                                         className='w-full h-full'
                                         cover={<img alt="collection" src={item.url} className='object-contain h-60' />}
-                                        // onClick={() => navigate(`/product/${dataTag[0].id}`)}
+                                    // onClick={() => navigate(`/product/${dataTag[0].id}`)}
                                     >
                                         <Meta title={item.tag} description={item.tag} />
                                     </Card>
                                 </div>
                             )}
                         </Carousel>
-                        <div className='flex flex-col space-y-4 w-full items-center h-min'>
+                        <div className='flex flex-col space-y-4 items-center h-min'>
                             <Card
                                 hoverable
                                 className='h-min'
@@ -187,16 +182,27 @@ const TabCollection = ({ tag }) => {
                                 <Meta title={mappingItemProduct[0]?.name} description={mappingItemProduct[0]?.description} />
                                 <Typography.Title level={4} className='text-green-500'>${mappingItemProduct[0]?.price}</Typography.Title>
                                 <div className='flex gap-4'>
-                                    <Select defaultValue="Size" className='mt-2 w-20' onChange={(value) => setSelectedSizes(prev => ({ ...prev, [mappingItemProduct[0]?.id]: value }))}>
-                                        <Option value="S">S</Option>
-                                        <Option value="M">M</Option>
-                                        <Option value="L">L</Option>
-                                        <Option value="XL">XL</Option>
+                                    <Select
+                                        defaultValue="Size"
+                                        className='mt-2 w-20'
+                                        onChange={(value) => setSelectedSizes(prev => ({ ...prev, [mappingItemProduct[0]?.id]: value }))}
+                                    >
+                                        {Array.from({ length: dataTag[0].size }, (_, i) => (
+                                            dataTag[0].size === 1 ? (
+                                                <Select.Option key={i} value="Free">
+                                                    Free
+                                                </Select.Option>
+                                            ) : (
+                                                <Select.Option key={i} value={['S', 'M', 'L', 'XL'][i]}>
+                                                    {['S', 'M', 'L', 'XL'][i]}
+                                                </Select.Option>
+                                            )
+                                        ))}F
                                     </Select>
                                     <Select defaultValue="Design" className='mt-2 w-36' onClick={(e) => e.stopPropagation()} onChange={(value) => setSelectedDesigns(prev => ({ ...prev, [mappingItemProduct[0]?.id]: value }))}>
-                                        <Option value="1">Design 1</Option>
-                                        <Option value="2">Design 2</Option>
-                                        <Option value="3">Design 3</Option>
+                                        {dataTag[0]?.image.map((item, index) => (
+                                            <Select.Option key={index} value={item.tag}>{item.tag}</Select.Option>
+                                        ))}
                                     </Select>
                                 </div>
                             </Card>
@@ -221,23 +227,23 @@ const TabCollection = ({ tag }) => {
                         </div>
                     </div>
                 </div>
-                <div className='m-0 h-min text-white leading-4 text-lg text-center bg-gray-300'>
-                    <div key={mappingItemProduct[1]?.id} className='flex px-16 py-8 h-[90%]'>
+                <div className='m-0 h-min text-white leading-4 text-lg text-center '>
+                    <div key={mappingItemProduct[1]?.id} className='flex px-16 py-8 h-[90%] gap-40 justify-center items-center'>
                         <Carousel arrows infinite={true} className='h-full w-[360px]'>
                             {dataTag[1]?.image.map((item, index) =>
-                                <div className='px-4 h-full text-white leading-4 text-lg text-center bg-gray-300 w-[460px]' key={index}>
+                                <div className='px-4 h-full text-white leading-4 text-lg text-center w-[460px]' key={index}>
                                     <Card
                                         hoverable
                                         className='w-full h-full'
                                         cover={<img alt="collection" src={item.url} className='object-contain h-60' />}
-                                        // onClick={() => navigate(`/product/${dataTag[0].id}`)}
+                                    // onClick={() => navigate(`/product/${dataTag[0].id}`)}
                                     >
                                         <Meta title={item.tag} description={item.tag} />
                                     </Card>
                                 </div>
                             )}
                         </Carousel>
-                        <div className='flex flex-col space-y-4 w-full items-center h-min'>
+                        <div className='flex flex-col space-y-4 items-center h-min'>
                             <Card
                                 hoverable
                                 className='h-min'
@@ -246,16 +252,27 @@ const TabCollection = ({ tag }) => {
                                 <Meta title={mappingItemProduct[1]?.name} description={mappingItemProduct[1]?.description} />
                                 <Typography.Title level={4} className='text-green-500'>${mappingItemProduct[1]?.price}</Typography.Title>
                                 <div className='flex gap-4'>
-                                    <Select defaultValue="Size" className='mt-2 w-20' onChange={(value) => setSelectedSizes(prev => ({ ...prev, [mappingItemProduct[1]?.id]: value }))}>
-                                        <Option value="S">S</Option>
-                                        <Option value="M">M</Option>
-                                        <Option value="L">L</Option>
-                                        <Option value="XL">XL</Option>
+                                    <Select
+                                        defaultValue="Size"
+                                        className='mt-2 w-20'
+                                        onChange={(value) => setSelectedSizes(prev => ({ ...prev, [mappingItemProduct[1]?.id]: value }))}
+                                    >
+                                        {Array.from({ length: dataTag[1].size }, (_, i) => (
+                                            dataTag[1].size === 1 ? (
+                                                <Select.Option key={i} value="Free">
+                                                    Free
+                                                </Select.Option>
+                                            ) : (
+                                                <Select.Option key={i} value={['S', 'M', 'L', 'XL'][i]}>
+                                                    {['S', 'M', 'L', 'XL'][i]}
+                                                </Select.Option>
+                                            )
+                                        ))}
                                     </Select>
                                     <Select defaultValue="Design" className='mt-2 w-36' onClick={(e) => e.stopPropagation()} onChange={(value) => setSelectedDesigns(prev => ({ ...prev, [mappingItemProduct[1]?.id]: value }))}>
-                                        <Option value="1">Design 1</Option>
-                                        <Option value="2">Design 2</Option>
-                                        <Option value="3">Design 3</Option>
+                                        {dataTag[1]?.image.map((item, index) => (
+                                            <Select.Option key={index} value={item.tag}>{item.tag}</Select.Option>
+                                        ))}
                                     </Select>
                                 </div>
                             </Card>

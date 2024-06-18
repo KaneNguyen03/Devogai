@@ -58,9 +58,9 @@ export default function Login() {
               </ConfigAntdTheme>
             </Form>
             <Typography.Paragraph className="text-center">
-              If you don’t have the account, please register here{' '}
+              If you don’t have the account, please contact {' '}
               <a href="" style={{ textDecoration: 'underline' }}>
-                register
+                admin
               </a>
             </Typography.Paragraph>
           </Card>

@@ -9,7 +9,6 @@ const COLORS = ['#0088FE', '#00C49F']
 
 const Admin = () => {
     const { data, isLoading } = useGetOrders()
-    console.log("🚀 Kha ne ~ data:", data)
 
 
     const totalOrders = data?.data.length || 0

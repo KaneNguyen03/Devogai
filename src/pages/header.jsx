@@ -79,23 +79,29 @@ export default function Header(isLoginPage) {
               <Meta description={item.description}></Meta>
               <div className='flex gap-4'>
                 <Select
-                  defaultValue={item.size}
+                  defaultValue={item.size === 1 ? "Free" : item.size}
                   className='mt-2 w-40'
                   onChange={(value) => updateSize(item.id, value)}
                 >
-                  <Option value="S">S</Option>
-                  <Option value="M">M</Option>
-                  <Option value="L">L</Option>
-                  <Option value="XL">XL</Option>
+                  {item?.id === "dd9dd3a7-652b-4a83-8329-da247a972365" || item?.id === "09cb9869-e18e-4131-9840-23590602a0e4" ? (
+                    <>
+                      <Select.Option value="S">S</Select.Option>
+                      <Select.Option value="M">M</Select.Option>
+                      <Select.Option value="L">L</Select.Option>
+                      <Select.Option value="XL">XL</Select.Option>
+                    </>
+                  ) : (
+                    <Select.Option value="Free">Free</Select.Option>
+                  )}
                 </Select>
                 <Select
-                  defaultValue={'Design ' + item.design}
+                  defaultValue={item.design}
                   className='mt-2 w-40'
                   onChange={(value) => updateDesign(item.id, value)}
                 >
-                  <Option value="1">Design 1</Option>
-                  <Option value="2">Design 2</Option>
-                  <Option value="3">Design 3</Option>
+                  <Select.Option value="1">Design 1</Select.Option>
+                  <Select.Option value="2">Design 2</Select.Option>
+                  <Select.Option value="3">Design 3</Select.Option>
                 </Select>
               </div>
             </Card>

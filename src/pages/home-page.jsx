@@ -2,22 +2,18 @@ import { Carousel } from "antd"
 import Contact from "../components/ui/contact"
 import TabCategory from "../components/ui/tab-category"
 import TabCollection from "../components/ui/tab-collection"
+import Banner from "../assets/banner.jpg"
+import Banner2 from "../assets/banner-2.jpg"
 
 export default function HomePage() {
     return (
         <div className="px-60">
             <Carousel autoplay autoplaySpeed={2500} arrows infinite={true}>
-                <div>
-                    <h3 className="m-0 h-80 text-white leading-4 text-lg text-center bg-gray-300">1</h3>
+                <div className="bg-cover bg-center m-0 h-80 leading-4 text-lg text-center">
+                    <img src={Banner} alt="Banner" className="w-full h-full object-cover" />
                 </div>
-                <div>
-                    <h3 className="m-0 h-80 text-white leading-4 text-lg text-center bg-gray-700">2</h3>
-                </div>
-                <div>
-                    <h3 className="m-0 h-80 text-white leading-4 text-lg text-center bg-red-500">3</h3>
-                </div>
-                <div>
-                    <h3 className="m-0 h-80 text-white leading-4 text-lg text-center bg-black">4</h3>
+                <div className="bg-center m-0 h-80 leading-4 text-lg text-center">
+                    <img src={Banner2} alt="Banner" className="w-full h-full object-contain" />
                 </div>
             </Carousel>
             <div id="arrivals">
