@@ -18,20 +18,13 @@ const Contact = () => {
                     <ul>
                         <li className="mt-2">
                             <span><i className="fa fa-phone mr-2"></i> </span>
-                            +91-9998887776
+                            0949 989 234
                         </li>
                         <li className="mt-2">
                             <span><i className="fa fa-envelope mr-2"></i> </span>
-                            <span>feedback@geeksforgeeks.org</span>
+                            <span>devogai.offical@gmail.com</span>
                         </li>
-                        <li className="mt-2">
-                            <span><i className="fa-solid fa-map-pin mr-2"></i>
-                            </span>
-                            A-143, 9th Floor, Sovereign Corporate
-                            <span className="pl-4">
-                                Tower, Sector-136, Noida, Uttar Pradesh
-                            </span>
-                        </li>
+
                     </ul>
                 </div>
             </div>
@@ -46,13 +39,7 @@ const Contact = () => {
                     <i className="fa fa-handshake fa-2xl"></i>
                     <div className="text-left mt-4">
                         <span><i className="fa fa-envelope mr-2"></i> </span>
-                        <span>branding@geeksforgeeks.org</span>
-                    </div>
-                    <div className="mt-2 text-left">
-                        <span><i className="fa-solid fa-map-pin mr-2"></i>  </span>
-                        A-143, 9th Floor, Sovereign Corporate
-                        Tower, Sector-<span className="pl-5">136,
-                            Noida, Uttar Pradesh</span>
+                        <span>devogai.offical@gmail.com</span>
                     </div>
                 </div>
             </div>
