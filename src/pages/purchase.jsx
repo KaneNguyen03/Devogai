@@ -79,7 +79,7 @@ const Purchase = () => {
                                         className="w-full"
                                         cover={<img alt={item.name} src={item.imageUrl} className="h-40 object-contain" />}
                                     >
-                                        <Meta title={item.name} description={`$${item.price}`} />
+                                        <Meta title={item.name} description={`${item.price.toLocaleString('de-DE')} vnd`} />
                                         <div className="flex gap-4">
                                             <Select
                                                 defaultValue={item.size || "Size"}
@@ -139,7 +139,7 @@ const Purchase = () => {
                                 <Typography.Text className="text-xl"><strong>Total Items:</strong> {cartItems.reduce((acc, item) => acc + item.quantity, 0)}</Typography.Text>
                             </div>
                             <div className="mb-2">
-                                <Typography.Text className="text-xl"><strong>Total Price:</strong> ${calculateTotalPrice().toFixed(2)}</Typography.Text>
+                                <Typography.Text className="text-xl"><strong>Total Price:</strong> {calculateTotalPrice().toLocaleString('de-DE')} vnd</Typography.Text>
                             </div>
                         </div>
                         <Form

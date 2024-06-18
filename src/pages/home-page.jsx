@@ -19,14 +19,17 @@ export default function HomePage() {
             <div id="arrivals">
                 <TabCategory tag={"New Arrivals"} />
             </div>
-            <div id="collection1">
-                <TabCollection tag={1} />
+            <div id="T-shirt">
+                <TabCollection tag={"T-shirt"} />
             </div>
-            <div id="collection2">
-                <TabCollection tag={2} />
+            <div id="Bandana">
+                <TabCollection tag={"Bandana"} />
             </div>
-            <div id="collection3">
-                <TabCollection tag={3} />
+            <div id="Tote Bag">
+                <TabCollection tag={"Tote Bag"} />
+            </div>
+            <div id="Socks">
+                <TabCollection tag={"Socks"} />
             </div>
             <div id="contact">
                 <Contact />

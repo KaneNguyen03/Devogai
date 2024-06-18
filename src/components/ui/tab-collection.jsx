@@ -40,7 +40,7 @@ const TabCollection = ({ tag }) => {
     if (isLoading) return <Loading />
     let dataTag = []
     switch (tag) {
-        case 1: {
+        case "T-shirt": {
             dataTag = [{
                 id: 1,
                 name: "Shirt collection 1",
@@ -74,7 +74,7 @@ const TabCollection = ({ tag }) => {
             mappingItemProduct[1] = data?.data.data[1]
             break
         }
-        case 2: {
+        case "Bandana": {
             dataTag = [{
                 id: 3,
                 name: "Túi tote",
@@ -107,7 +107,50 @@ const TabCollection = ({ tag }) => {
             mappingItemProduct[1] = data?.data.data[3]
             break
         }
-        case 3: {
+        case "Tote Bag": {
+            dataTag = [{
+                id: 5,
+                name: "Shirt collection 2",
+                size: 4,
+                image: [{
+                    url: Shirt4,
+                    tag: "Design 1",
+                },
+                {
+                    url: Shirt5,
+                    tag: "Design 2",
+
+                },
+                {
+                    url: Shirt6,
+                    tag: "Design 3",
+
+                }]
+            },
+            {
+                id: 6,
+                name: "Socks",
+                size: 1,
+                image: [{
+                    url: Sock1,
+                    tag: "Design 1",
+                },
+                {
+                    url: Sock2,
+                    tag: "Design 2",
+
+                },
+                {
+                    url: Sock3,
+                    tag: "Design 3",
+
+                }]
+            },]
+            mappingItemProduct[0] = data?.data.data[4]
+            mappingItemProduct[1] = data?.data.data[5]
+            break
+        }
+        case "Socks": {
             dataTag = [{
                 id: 5,
                 name: "Shirt collection 2",
@@ -153,8 +196,8 @@ const TabCollection = ({ tag }) => {
     }
     return (
         <div>
-            <div className='flex justify-center leading-10 p-8'>
-                <Typography.Title level={3}>{"Collection " + tag}</Typography.Title>
+            <div className='flex justify-center leading-10 p-8 text-red-500'>
+                <Typography.Title level={3} className='text-red-600'>{tag}</Typography.Title>
             </div>
             <Carousel autoplay autoplaySpeed={8000} arrows infinite={true}>
                 <div className='m-0 h-min text-white leading-4 text-lg text-center '>
@@ -180,7 +223,7 @@ const TabCollection = ({ tag }) => {
                                 cover={<img alt="example" src={mappingItemProduct[0]?.imageUrl} className='object-contain h-40' />}
                             >
                                 <Meta title={mappingItemProduct[0]?.name} description={mappingItemProduct[0]?.description} />
-                                <Typography.Title level={4} className='text-green-500'>${mappingItemProduct[0]?.price}</Typography.Title>
+                                <Typography.Title level={4} className='text-green-500'>{mappingItemProduct[0]?.price.toLocaleString('de-DE')} vnd</Typography.Title>
                                 <div className='flex gap-4'>
                                     <Select
                                         defaultValue="Size"
@@ -250,7 +293,7 @@ const TabCollection = ({ tag }) => {
                                 cover={<img alt="example" src={mappingItemProduct[1]?.imageUrl} className='object-contain h-40' />}
                             >
                                 <Meta title={mappingItemProduct[1]?.name} description={mappingItemProduct[1]?.description} />
-                                <Typography.Title level={4} className='text-green-500'>${mappingItemProduct[1]?.price}</Typography.Title>
+                                T<Typography.Title level={4} className='text-green-500'>{mappingItemProduct[1]?.price.toLocaleString('de-DE')} vnd</Typography.Title>
                                 <div className='flex gap-4'>
                                     <Select
                                         defaultValue="Size"

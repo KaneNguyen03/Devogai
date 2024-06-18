@@ -59,7 +59,7 @@ export default function Header(isLoginPage) {
         footer={[
           <div className='p-8 flex justify-center gap-8' key="cart-summary">
             <Typography.Text >Total items: {totalItems}</Typography.Text>
-            <Typography.Text>Total price: {totalPrice}$</Typography.Text>
+            <Typography.Text>Total price: {totalPrice.toLocaleString('de-DE')} vnd</Typography.Text>
           </div>,
           <Button key="back" onClick={() => setIsCartModalVisible(false)}>
             Continue Shopping

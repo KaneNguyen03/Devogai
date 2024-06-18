@@ -40,13 +40,13 @@ const Admin = () => {
                         <h2 className="font-bold text-lg">Total Salary</h2>
                         <p className="text-gray-500 mt-2">{data?.data
                             .filter(order => order.status.toLowerCase() === 'completed')
-                            .reduce((total, order) => total + order.totalAmount, 0)}$</p>
+                            .reduce((total, order) => total + order.totalAmount.toLocaleString('de-DE'), 0)} vnd</p>
                     </div>
                     <div className="p-4 border rounded-lg shadow-sm bg-white">
                         <h2 className="font-bold text-lg">Total Money Pending</h2>
                         <p className="text-gray-500 mt-2">{data?.data
                             .filter(order => order.status.toLowerCase() === 'pending')
-                            .reduce((total, order) => total + order.totalAmount, 0)}$</p>
+                            .reduce((total, order) => total + order.totalAmount.toLocaleString('de-DE'), 0)} vnd</p>
                     </div>
                     <div className="p-4 border rounded-lg shadow-sm bg-white">
                         <h2 className="font-bold text-lg">Total Orders</h2>
@@ -68,8 +68,8 @@ const Admin = () => {
                         <Line type="monotone" dataKey="revenue" stroke="#8884d8" />
                         <CartesianGrid stroke="#ccc" />
                         <XAxis dataKey="name" />
-                        <YAxis tickFormatter={(tick) => `$${tick}`} />
-                        <Tooltip formatter={(value) => `$${value}`} />
+                        <YAxis tickFormatter={(tick) => `${tick.toLocaleString('de-DE')} vnd`} />
+                        <Tooltip formatter={(value) => `${value.toLocaleString('de-DE')} vnd`} />
                     </LineChart>
                     <PieChart width={400} height={400}>
                         <Pie

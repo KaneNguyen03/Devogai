@@ -27,7 +27,7 @@ const TabCategory = ({ tag }) => {
             </div>
             <Carousel autoplay autoplaySpeed={8000} arrows infinite={true}>
                 <div className='m-0 h-min text-white leading-4 text-lg text-center opacity-4'>
-                    <div className='grid grid-cols-3 grid-rows-2 gap-4 px-8 py-4 mt-4'>
+                    <div className='grid grid-cols-4 grid-rows-2 gap-4 px-8 py-4 mt-4'>
                         {data?.data.data.slice(0, 6).map(item => {
                             return (
                                 <div key={item.id} className='flex flex-col items-center'>
