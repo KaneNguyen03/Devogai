@@ -4,10 +4,11 @@ import { useQuery } from "@tanstack/react-query"
 import { notification } from "antd"
 import { useMutation } from "react-query"
 
-export const useGetProducts = () => {
+export const useGetProducts = (param) => {
   return useQuery({
-    queryKey: ["products"],
-    queryFn: () => productApi.getProduct(),
+    queryKey: ["products", param],
+    queryFn: () => productApi.getProduct(param),
+    enabled: true
   })
 }
 
@@ -15,7 +16,7 @@ export const useUpdateProduct = (setLoading, setIsModalVisible) => {
   return useMutation(
     (data) => productApi.updateProduct(data),
     {
-      onSuccess: async () => {
+      onSuccess: () => {
         queryClient.invalidateQueries(["products"])
         setIsModalVisible(false)
       },

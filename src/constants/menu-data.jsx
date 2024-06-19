@@ -1,4 +1,4 @@
-import { AppstoreOutlined, ReadOutlined, SettingOutlined, UserOutlined } from "@ant-design/icons"
+import { AppstoreOutlined, GiftOutlined, ReadOutlined, SettingOutlined, ShoppingOutlined, SkinOutlined, UserOutlined } from "@ant-design/icons"
 
 export const NavigatorItems = [
   {
@@ -14,23 +14,30 @@ export const NavigatorItems = [
     children: []
   },
   {
-    label: 'Collection 1',
-    key: 'collection1',
-    icon: <SettingOutlined />,
+    label: 'T-shirt',
+    key: 'T-shirt',
+    icon: <SkinOutlined />,
     children: [
     ]
   },
   {
-    label: 'Collection 2',
-    key: 'collection2',
-    icon: <SettingOutlined />,
+    label: 'Bandana',
+    key: 'Bandana',
+    icon: <GiftOutlined />,
     children: [
     ]
   },
   {
-    label: 'Collection 3',
-    key: 'collection3',
-    icon: <SettingOutlined />,
+    label: 'Tote Bag',
+    key: 'Tote Bag',
+    icon: <ShoppingOutlined />,
+    children: [
+    ]
+  },
+  {
+    label: 'Socks',
+    key: 'Socks',
+    icon: <AppstoreOutlined />,
     children: [
     ]
   },
@@ -200,6 +207,13 @@ export const VIEW_ORDER_COLS = [
     dataIndex: 'totalAmount',
     width: 100,
     key: 'totalAmount',
+    align: 'center'
+  },
+  {
+    title: 'Phone',
+    dataIndex: 'phone',
+    width: 100,
+    key: 'phone',
     align: 'center'
   },
   {

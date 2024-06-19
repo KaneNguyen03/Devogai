@@ -1,22 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import { Modal, Form, Input, Button, Select, message } from 'antd'
-import { useUpdateOrders } from '../../features/use-order-management'
+import { Button, Form, Input, Modal, Select } from 'antd'
+import { useEffect } from 'react'
 
-const EditOrderModal = ({ visible, onCancel, order }) => {
+
+const EditOrderModal = ({ visible, onCancel, order, onSave }) => {
     const [form] = Form.useForm()
-    const [loading, setLoading] = useState(false)
-
-    const updateOrderMutation = useUpdateOrders({
-        onSuccess: () => {
-            message.success('Order updated successfully')
-            onCancel() // Close modal after saving
-            setLoading(false)
-        },
-        onError: (error) => {
-            message.error(`Failed to update order: ${error.message}`)
-            setLoading(false)
-        },
-    })
 
     useEffect(() => {
         if (visible) {
@@ -28,8 +15,7 @@ const EditOrderModal = ({ visible, onCancel, order }) => {
     const handleSave = async () => {
         try {
             const formData = await form.validateFields()
-            setLoading(true)
-            updateOrderMutation.mutate({...formData, id : order?.id})
+            await onSave({ ...formData, id: order?.id })
         } catch (error) {
             console.error('Validation failed:', error)
         }
@@ -49,7 +35,7 @@ const EditOrderModal = ({ visible, onCancel, order }) => {
                 <Button key="cancel" onClick={handleCancel}>
                     Cancel
                 </Button>,
-                <Button key="save" type="primary" onClick={handleSave} loading={loading}>
+                <Button key="save" type="primary" onClick={handleSave}>
                     Save
                 </Button>,
             ]}

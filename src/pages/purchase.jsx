@@ -10,7 +10,7 @@ const { Item } = Form
 const { Meta } = Card
 
 const Purchase = () => {
-    const { cartItems, removeFromCart, updateQuantity, updateSize, updateDesign } = useContext(CartContext)
+    const { cartItems, removeFromCart, updateQuantity, updateSize } = useContext(CartContext)
     const navigate = useNavigate()
     const { user } = useAuth()
     const [form] = Form.useForm()
@@ -86,18 +86,11 @@ const Purchase = () => {
                                                 className='mt-2 w-20'
                                                 onChange={(value) => updateSize(item.id, value)}
                                             >
-                                                <Select.Option value="S">S</Select.Option>
-                                                <Select.Option value="M">M</Select.Option>
-                                                <Select.Option value="L">L</Select.Option>
-                                            </Select>
-                                            <Select
-                                                defaultValue={'Design ' + item.design}
-                                                className='mt-2 w-36'
-                                                onChange={(value) => updateDesign(item.id, value)}
-                                            >
-                                                <Select.Option value="1">Design 1</Select.Option>
-                                                <Select.Option value="2">Design 2</Select.Option>
-                                                <Select.Option value="3">Design 3</Select.Option>
+                                                {Array.from({ length: (item?.category === "T-shirt") ? 4 : 1 }, (_, i) => (
+                                                    <Select.Option key={i} value={(item?.category === "T-shirt") ? ['S', 'M', 'L', 'XL'][i] : 'Free'}>
+                                                        {(item?.category === "T-shirt") ? ['S', 'M', 'L', 'XL'][i] : 'Free'}
+                                                    </Select.Option>
+                                                ))}
                                             </Select>
                                         </div>
                                     </Card>

@@ -4,15 +4,13 @@ import EditProductModal from '../components/ui/EditProductModal'
 import SectionHeader from '../components/ui/section-header'
 import TableData from '../components/ui/table'
 import { VIEW_PRODUCT_COLS } from '../constants/menu-data'
-// import { queryClient } from '../constants/index'
 import { useGetProducts, useUpdateProduct } from '../features/use-product-mangement'
 import { message } from 'antd'
-import { useQueryClient } from 'react-query'
+import { queryClient } from "../constants/index"
 import Loading from '../components/ui/loading'
 
 const ProductManagement = () => {
-    const { data, isLoading } = useGetProducts()
-    const queryClient = useQueryClient()
+    const { data, isLoading } = useGetProducts({ page_index: 1, page_size: 99 })
     const [selectedProduct, setSelectedProduct] = useState(null) // State to store selected product
     const [isModalVisible, setIsModalVisible] = useState(false) // State for modal visibility
     const [loading, setLoading] = useState(false)
@@ -32,10 +30,10 @@ const ProductManagement = () => {
 
 
     const handleSave = async (formData) => {
-        setLoading(true)
         try {
-            await updateProductMutation.mutateAsync(formData)
-            await queryClient.invalidateQueries(["products"])
+            setLoading(true)
+            updateProductMutation.mutate(formData)
+            queryClient.invalidateQueries(["products"], { page_index: 1, page_size: 99 })
         } catch (error) {
             console.error('Update failed:', error)
             message.error('Failed to update product')
@@ -44,7 +42,7 @@ const ProductManagement = () => {
         }
     }
 
-    if (isLoading)
+    if (isLoading || loading)
         return <Loading />
 
     return (
@@ -81,7 +79,7 @@ const ProductManagement = () => {
                     visible={isModalVisible}
                     onCancel={handleCancel}
                     onSave={handleSave}
-                    product={selectedProduct} // Pass the selected product to the modal
+                    product={selectedProduct} 
                 />
             </div>
         </div>

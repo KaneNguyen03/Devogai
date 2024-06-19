@@ -17,7 +17,7 @@ export default function HomePage() {
                 </div>
             </Carousel>
             <div id="arrivals">
-                <TabCategory tag={"New Arrivals"} />
+                <TabCategory tag={"New Arrivals"}/>
             </div>
             <div id="T-shirt">
                 <TabCollection tag={"T-shirt"} />

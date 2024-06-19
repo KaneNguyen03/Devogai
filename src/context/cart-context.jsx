@@ -6,12 +6,12 @@ export const CartProvider = ({ children }) => {
 
     const addToCart = (item) => {
         setCartItems(prevItems => {
-            const existingItem = prevItems.find(i => i.id === item.id && i.size === item.size && i.design === item.design)
+            const existingItem = prevItems.find(i => i.id === item.id && i.size === item.size)
 
             if (existingItem) {
                 // If the item already exists in the cart, increase its quantity by 1
                 return prevItems.map(i =>
-                    i.id === item.id && i.size === item.size && i.design === item.design ? { ...i, quantity: i.quantity + 1 } : i
+                    i.id === item.id && i.size === item.size ? { ...i, quantity: i.quantity + 1 } : i
                 )
             } else {
                 // If the item doesn't exist in the cart, add it with a quantity of 1
@@ -38,13 +38,8 @@ export const CartProvider = ({ children }) => {
         ))
     }
 
-    const updateDesign = (itemId, design) => {
-        setCartItems(prevItems => prevItems.map(item =>
-            item.id === itemId ? { ...item, design: design } : item
-        ))
-    }
     return (
-        <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, updateQuantity, updateSize, updateDesign }}>
+        <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, updateQuantity, updateSize }}>
             {children}
         </CartContext.Provider>
     )

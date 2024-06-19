@@ -1,4 +1,3 @@
-import React from 'react'
 import SectionHeader from '../components/ui/section-header'
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, PieChart, Pie, Cell } from 'recharts'
 import { useGetOrders } from "../features/use-order-management"
@@ -10,8 +9,6 @@ const COLORS = ['#0088FE', '#00C49F']
 const Admin = () => {
     const { data, isLoading } = useGetOrders({ page_index: 1, page_size: 99999 })
 
-    // const totalPendingOrders = data?.data.filter(order => order.status === 'pending').length || 0
-    // const totalSuccessfulOrders = data?.data.filter(order => order.status === 'success').length || 0
     if (isLoading) {
         return <Loading />
     }
@@ -25,10 +22,15 @@ const Admin = () => {
         return acc
     }, {})
 
-    const chartData = Object.keys(groupedData).map(date => ({
+    const chartData = groupedData ? Object.keys(groupedData).map(date => ({
         name: date,
         revenue: groupedData[date]
-    }))
+    })) : ""
+
+    const dataxx = data?.data
+        .filter(order => order.status.toLowerCase() === 'completed')
+        .reduce((total, order) => total + order.totalAmount, 0).toLocaleString('de-DE')
+    console.log("🚀 Kha ne ~ dataxx:", dataxx)
 
     return (
         <div>
@@ -40,13 +42,13 @@ const Admin = () => {
                         <h2 className="font-bold text-lg">Total Salary</h2>
                         <p className="text-gray-500 mt-2">{data?.data
                             .filter(order => order.status.toLowerCase() === 'completed')
-                            .reduce((total, order) => total + order.totalAmount.toLocaleString('de-DE'), 0)} vnd</p>
+                            .reduce((total, order) => total + order.totalAmount, 0).toLocaleString('de-DE')} vnd</p>
                     </div>
                     <div className="p-4 border rounded-lg shadow-sm bg-white">
                         <h2 className="font-bold text-lg">Total Money Pending</h2>
                         <p className="text-gray-500 mt-2">{data?.data
                             .filter(order => order.status.toLowerCase() === 'pending')
-                            .reduce((total, order) => total + order.totalAmount.toLocaleString('de-DE'), 0)} vnd</p>
+                            .reduce((total, order) => total + order.totalAmount, 0).toLocaleString('de-DE')} vnd</p>
                     </div>
                     <div className="p-4 border rounded-lg shadow-sm bg-white">
                         <h2 className="font-bold text-lg">Total Orders</h2>

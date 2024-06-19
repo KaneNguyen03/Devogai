@@ -1,22 +1,22 @@
-import { useState, useEffect } from 'react'
-import { Modal, Form, Input, Button, Select, message, InputNumber } from 'antd'
+import { Button, Form, Input, Modal, Select } from 'antd'
+import { useEffect, useState } from 'react'
 
-const EditProductModal = ({ visible, onCancel, product, onSave }) => {
+const EditOrderModal = ({ visible, onCancel, order, onSave }) => {
     const [form] = Form.useForm()
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         if (visible) {
             form.resetFields() // Reset form fields whenever modal becomes visible
-            form.setFieldsValue(product) // Set initial values based on current product
+            form.setFieldsValue(order) // Set initial values based on current order
         }
-    }, [form, visible, product])
+    }, [form, visible, order])
 
     const handleSave = async () => {
         try {
             const formData = await form.validateFields()
             setLoading(true)
-            await onSave({ ...formData, id: product?.id })
+            await onSave({ ...formData, id: order?.id })
             setLoading(false)
         } catch (error) {
             console.error('Validation failed:', error)
@@ -31,14 +31,14 @@ const EditProductModal = ({ visible, onCancel, product, onSave }) => {
 
     return (
         <Modal
-            title="Edit Product"
+            title="Edit Order"
             open={visible}
             onCancel={handleCancel}
             footer={[
                 <Button key="cancel" onClick={handleCancel}>
                     Cancel
                 </Button>,
-                <Button key="save" type="primary" onClick={() => handleSave()} loading={loading}>
+                <Button key="save" type="primary" onClick={handleSave} loading={loading}>
                     Save
                 </Button>,
             ]}
@@ -46,33 +46,33 @@ const EditProductModal = ({ visible, onCancel, product, onSave }) => {
             <Form form={form} layout="vertical">
                 <Form.Item
                     name="name"
-                    label="Product Name"
-                    rules={[{ required: true, message: 'Please enter product name' }]}
+                    label="Customer Name"
+                    rules={[{ required: true, message: 'Please enter customer name' }]}
                 >
-                    <Input placeholder="Enter product name" />
+                    <Input placeholder="Enter customer name" />
                 </Form.Item>
                 <Form.Item
-                    name="description"
-                    label="Description"
-                    rules={[{ required: true, message: 'Please enter product description' }]}
+                    name="address"
+                    label="Address"
+                    rules={[{ required: true, message: 'Please enter address' }]}
                 >
-                    <Input placeholder="Enter product description" />
+                    <Input placeholder="Enter address" />
                 </Form.Item>
                 <Form.Item
-                    name="price"
-                    label="Price"
-                    rules={[{ required: true, message: 'Please enter product price' }]}
+                    name="phone"
+                    label="Phone"
+                    rules={[{ required: true, message: 'Please enter phone number' }]}
                 >
-                    <InputNumber min={0} placeholder="Enter product price" style={{ width: '100%' }} />
+                    <Input placeholder="Enter phone number" />
                 </Form.Item>
                 <Form.Item
                     name="status"
                     label="Status"
                     rules={[{ required: true, message: 'Please select status' }]}
                 >
-                    <Select placeholder="Select product status">
-                        <Select.Option value="Available">Available</Select.Option>
-                        <Select.Option value="Disable">Disable</Select.Option>
+                    <Select placeholder="Select order status">
+                        <Select.Option value="Pending">Pending</Select.Option>
+                        <Select.Option value="Completed">Completed</Select.Option>
                     </Select>
                 </Form.Item>
             </Form>
@@ -80,4 +80,4 @@ const EditProductModal = ({ visible, onCancel, product, onSave }) => {
     )
 }
 
-export default EditProductModal
+export default EditOrderModal

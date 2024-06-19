@@ -1,21 +1,39 @@
+import { EditOutlined } from '@ant-design/icons'
+import { message } from 'antd'
 import { useState } from 'react'
+import EditOrderModal from '../components/ui/EditOrderModal'
+import Loading from '../components/ui/loading'
 import SectionHeader from '../components/ui/section-header'
 import TableData from '../components/ui/table'
+import { queryClient } from '../constants'
 import { VIEW_ORDER_COLS } from '../constants/menu-data'
-import { useGetOrders } from '../features/use-order-management'
-import { EditOutlined } from '@ant-design/icons'
-import EditOrderModal from '../components/ui/EditOrderModal'
+import { useGetOrders, useUpdateOrders } from '../features/use-order-management'
 
 const OrderManagement = () => {
     const { data, isLoading } = useGetOrders({ page_index: 1, page_size: 99999 })
     const [selectedOrder, setSelectedOrder] = useState(null) // State to store selected order
     const [isModalVisible, setIsModalVisible] = useState(false) // State for modal visibility
 
+
+    const updateOrderMutation = useUpdateOrders(setIsModalVisible)
     // Function to handle edit action
     const handleEdit = (record) => {
         setSelectedOrder(record) // Set the selected order to edit
         setIsModalVisible(true) // Show the modal
     }
+
+    const handleSave = async (formData) => {
+        try {
+            updateOrderMutation.mutate(formData)
+            queryClient.invalidateQueries(["orders"], { page_index: 1, page_size: 99 })
+        } catch (error) {
+            console.error('Update failed:', error)
+            message.error('Failed to update order')
+        }
+    }
+
+    if (isLoading)
+        return <Loading />
 
     // Function to close the modal
     const handleCancel = () => {
@@ -58,6 +76,7 @@ const OrderManagement = () => {
             <EditOrderModal
                 visible={isModalVisible}
                 onCancel={handleCancel}
+                onSave={handleSave}
                 order={selectedOrder} // Pass the selected order to the modal
             />
         </div>

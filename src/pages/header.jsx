@@ -13,7 +13,7 @@ import { CartContext } from '../context/cart-context'
 import { useAuth } from '../hooks/use-auth'
 
 export default function Header(isLoginPage) {
-  const { cartItems, removeFromCart, updateQuantity, updateSize, updateDesign } = useContext(CartContext)
+  const { cartItems, removeFromCart, updateQuantity, updateSize } = useContext(CartContext)
   const navigate = useNavigate()
   const { logoutMutation, user } = useAuth()
 
@@ -94,15 +94,7 @@ export default function Header(isLoginPage) {
                     <Select.Option value="Free">Free</Select.Option>
                   )}
                 </Select>
-                <Select
-                  defaultValue={item.design}
-                  className='mt-2 w-40'
-                  onChange={(value) => updateDesign(item.id, value)}
-                >
-                  <Select.Option value="1">Design 1</Select.Option>
-                  <Select.Option value="2">Design 2</Select.Option>
-                  <Select.Option value="3">Design 3</Select.Option>
-                </Select>
+              
               </div>
             </Card>
             <div className='p-4 flex flex-col items-center gap-2'>

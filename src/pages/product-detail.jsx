@@ -46,7 +46,7 @@ const ProductDetail = () => {
           </Carousel>
         </div>
         <Card className="rounded shadow-lg p-6" bordered={false}>
-          <Typography.Title>Collection 1</Typography.Title>
+          <Typography.Title>T-shirt</Typography.Title>
           <Card.Meta
             title={<div className="font-bold text-xl p-6">{currentProduct?.name}</div>}
             description={
