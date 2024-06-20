@@ -81,16 +81,15 @@ export const MenuItemsAdmin = [
 
 export const VIEW_USER_COLS = [
   {
-    title: 'ID',
+    title: 'No',
     dataIndex: 'id',
     width: 60,
     key: 'id',
     fixed: 'left',
     align: 'center',
-    sorter: {
-      compare: (a, b) => a.id.localeCompare(b.id)
+    render: (text, record, index) => {
+      return `${index + 1}`
     },
-
     defaultSortOrder: 'ascend'
   },
   {
@@ -123,15 +122,27 @@ export const VIEW_USER_COLS = [
 ]
 
 export const VIEW_PRODUCT_COLS = [
+  // {
+  //   title: 'ID',
+  //   dataIndex: 'id',
+  //   width: 60,
+  //   key: 'id',
+  //   fixed: 'left',
+  //   align: 'center',
+  //   sorter: {
+  //     compare: (a, b) => a.id.localeCompare(b.id)
+  //   },
+  //   defaultSortOrder: 'ascend'
+  // },
   {
-    title: 'ID',
-    dataIndex: 'id',
+    title: 'No',
+    dataIndex: 'stt',
     width: 60,
-    key: 'id',
+    key: 'stt',
     fixed: 'left',
     align: 'center',
     sorter: {
-      compare: (a, b) => a.id.localeCompare(b.id)
+      compare: (a, b) => a.stt?.localeCompare(b.stt)
     },
     defaultSortOrder: 'ascend'
   },
@@ -154,7 +165,8 @@ export const VIEW_PRODUCT_COLS = [
     dataIndex: 'price',
     width: 100,
     key: 'price',
-    align: 'center'
+    align: 'center',
+    render: (text) => parseFloat(text).toLocaleString('de-DE') + " VND"
   },
   {
     title: 'status',
@@ -177,16 +189,15 @@ export const VIEW_PRODUCT_COLS = [
 
 export const VIEW_ORDER_COLS = [
   {
-    title: 'ID',
-    dataIndex: 'id',
+    title: 'No',
+    dataIndex: 'stt',
     width: 60,
-    key: 'id',
+    key: 'stt',
     fixed: 'left',
     align: 'center',
     sorter: {
-      compare: (a, b) => a.id.localeCompare(b.id)
+      compare: (a, b) => a.stt?.localeCompare(b.stt)
     },
-
     defaultSortOrder: 'ascend'
   },
   {
@@ -208,7 +219,8 @@ export const VIEW_ORDER_COLS = [
     dataIndex: 'totalAmount',
     width: 100,
     key: 'totalAmount',
-    align: 'center'
+    align: 'center',
+    render: (text) => parseFloat(text).toLocaleString('de-DE') + " VND"
   },
   {
     title: 'Phone',

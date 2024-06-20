@@ -26,7 +26,7 @@ const TabCollection = ({ tag }) => {
     return (
         <div>
             <div className='flex justify-center leading-10 p-8 text-red-500'>
-                <Typography.Title level={1} style={{ color: '#72543B' }}>{tag.toString().toUpperCase()}</Typography.Title>
+                <Typography.Title level={1} style={{ color: '#72543B' }}>{tag?.toString().toUpperCase()}</Typography.Title>
             </div>
 
             <div className='m-0 h-min text-white leading-4 text-lg text-center'>
@@ -36,8 +36,8 @@ const TabCollection = ({ tag }) => {
                             <Card
                                 hoverable
                                 style={{ width: 280, height: 380 }}
-
-                                cover={<img alt="example" src={item?.imageUrl} className='object-contain'/>}
+                                onClick={() => navigate(`/product/${item.id}`)}
+                                cover={<img alt="example" src={item?.imageUrl} className='object-contain' />}
                             >
                                 <Meta title={item?.name} description={item?.description} />
                                 <Typography.Title level={4} style={{ color: '#ff7f7f' }}>

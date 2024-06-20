@@ -45,6 +45,7 @@ const TabCategory = ({ tag }) => {
                                 <Card
                                     hoverable
                                     cover={<img alt="example" src={item?.imageUrl} className='object-contain' />}
+                                    onClick={() => navigate(`/product/${item.id}`)}
                                 >
                                     <Meta title={item.name} description={item.description} />
                                     <Typography.Title level={4} style={{ color: '#ff7f7f' }}>
