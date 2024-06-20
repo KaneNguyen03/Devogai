@@ -35,7 +35,7 @@ const TabCategory = ({ tag }) => {
     return (
         <div>
             <div className='flex justify-center leading-10 p-8'>
-                <Typography.Title level={3} style={{ color: '#ff7f7f' }}>{tag}</Typography.Title>
+                <Typography.Title level={1} style={{ color: '#72543B' }}>{tag.toString().toUpperCase()}</Typography.Title>
             </div>
             <div className='m-0 h-min text-white leading-4 text-lg text-center opacity-4'>
                 <div className='grid grid-cols-4 grid-rows-2 gap-4 px-8 py-4 mt-4'>
@@ -44,10 +44,12 @@ const TabCategory = ({ tag }) => {
                             <div key={item.id} className='flex flex-col items-center'>
                                 <Card
                                     hoverable
-                                    style={{ width: 240, height: 360 }}
-                                    cover={<img alt="example" src={item?.imageUrl} className='object-contain h-60' />}
+                                    cover={<img alt="example" src={item?.imageUrl} className='object-contain' />}
                                 >
                                     <Meta title={item.name} description={item.description} />
+                                    <Typography.Title level={4} style={{ color: '#ff7f7f' }}>
+                                        {item?.price.toLocaleString('de-DE')} VND
+                                    </Typography.Title>
                                     <div className='flex justify-center'>
                                         <Select defaultValue="Size" className='mt-2 w-20' onClick={(e) => e.stopPropagation()} onChange={(value) => setSelectedSizes(prev => ({ ...prev, [item.id]: value }))}>
 

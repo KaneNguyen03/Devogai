@@ -52,7 +52,7 @@ const ProductDetail = () => {
             description={
               <div>
                 <p className="text-gray-900 text-xl">
-                  Price: <span className="font-bold">{currentProduct?.price} vnd</span>
+                  Price: <span className="font-bold">{currentProduct?.price} VND</span>
                 </p>
                 <div className="flex items-center mt-4">
                   <p className="text-gray-700 text-sm mr-3">Select size:</p>

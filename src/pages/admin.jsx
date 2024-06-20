@@ -27,10 +27,7 @@ const Admin = () => {
         revenue: groupedData[date]
     })) : ""
 
-    const dataxx = data?.data
-        .filter(order => order.status.toLowerCase() === 'completed')
-        .reduce((total, order) => total + order.totalAmount, 0).toLocaleString('de-DE')
-    console.log("🚀 Kha ne ~ dataxx:", dataxx)
+
 
     return (
         <div>
@@ -40,15 +37,15 @@ const Admin = () => {
 
                     <div className="p-4 border rounded-lg shadow-sm bg-white">
                         <h2 className="font-bold text-lg">Total Salary</h2>
-                        <p className="text-gray-500 mt-2">{data?.data
+                        <p className="text-red-500 mt-2">{data?.data
                             .filter(order => order.status.toLowerCase() === 'completed')
-                            .reduce((total, order) => total + order.totalAmount, 0).toLocaleString('de-DE')} vnd</p>
+                            .reduce((total, order) => total + order.totalAmount, 0).toLocaleString('de-DE')} VND</p>
                     </div>
                     <div className="p-4 border rounded-lg shadow-sm bg-white">
                         <h2 className="font-bold text-lg">Total Money Pending</h2>
-                        <p className="text-gray-500 mt-2">{data?.data
+                        <p className="text-red-500 mt-2">{data?.data
                             .filter(order => order.status.toLowerCase() === 'pending')
-                            .reduce((total, order) => total + order.totalAmount, 0).toLocaleString('de-DE')} vnd</p>
+                            .reduce((total, order) => total + order.totalAmount, 0).toLocaleString('de-DE')} VND</p>
                     </div>
                     <div className="p-4 border rounded-lg shadow-sm bg-white">
                         <h2 className="font-bold text-lg">Total Orders</h2>
@@ -70,8 +67,8 @@ const Admin = () => {
                         <Line type="monotone" dataKey="revenue" stroke="#8884d8" />
                         <CartesianGrid stroke="#ccc" />
                         <XAxis dataKey="name" />
-                        <YAxis tickFormatter={(tick) => `${tick.toLocaleString('de-DE')} vnd`} />
-                        <Tooltip formatter={(value) => `${value.toLocaleString('de-DE')} vnd`} />
+                        <YAxis tickFormatter={(tick) => `${tick.toLocaleString('de-DE')} VND`} />
+                        <Tooltip formatter={(value) => `${value.toLocaleString('de-DE')} VND`} />
                     </LineChart>
                     <PieChart width={400} height={400}>
                         <Pie

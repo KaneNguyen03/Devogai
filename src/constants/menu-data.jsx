@@ -1,4 +1,5 @@
 import { AppstoreOutlined, GiftOutlined, ReadOutlined, SettingOutlined, ShoppingOutlined, SkinOutlined, UserOutlined } from "@ant-design/icons"
+import moment from "moment"
 
 export const NavigatorItems = [
   {
@@ -161,17 +162,17 @@ export const VIEW_PRODUCT_COLS = [
     width: 100,
     key: 'status',
     align: 'center',
-    sorter: {
-      compare: (a, b) => a.status.localeCompare(b.status)
-    },
   },
   {
     title: 'Date',
     dataIndex: 'createdAt',
     width: 100,
     key: 'createdAt',
-    align: 'center'
-  },
+    align: 'center',
+    render: (date) => moment(date).format('DD-MM-YYYY'),
+    sorter: (a, b) => moment(a.createdAt).unix() - moment(b.createdAt).unix(),
+
+  }
 ]
 
 export const VIEW_ORDER_COLS = [
@@ -213,7 +214,7 @@ export const VIEW_ORDER_COLS = [
     title: 'Phone',
     dataIndex: 'phone',
     width: 100,
-    key: 'phone',
+    key: 'totalAmount',
     align: 'center'
   },
   {
@@ -231,6 +232,8 @@ export const VIEW_ORDER_COLS = [
     dataIndex: 'createdAt',
     width: 100,
     key: 'createdAt',
-    align: 'center'
+    align: 'center',
+    render: (date) => moment(date).format('DD-MM-YYYY'),
+    sorter: (a, b) => moment(a.createdAt).unix() - moment(b.createdAt).unix(),
   },
 ]

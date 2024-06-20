@@ -26,7 +26,7 @@ const TabCollection = ({ tag }) => {
     return (
         <div>
             <div className='flex justify-center leading-10 p-8 text-red-500'>
-                <Typography.Title level={3} style={{ color: '#ff7f7f' }}>{tag}</Typography.Title>
+                <Typography.Title level={1} style={{ color: '#72543B' }}>{tag.toString().toUpperCase()}</Typography.Title>
             </div>
 
             <div className='m-0 h-min text-white leading-4 text-lg text-center'>
@@ -35,12 +35,13 @@ const TabCollection = ({ tag }) => {
                         <div key={item.id} className='flex flex-col items-center justify-between p-4'>
                             <Card
                                 hoverable
-                                className='h-min'
-                                cover={<img alt="example" src={item?.imageUrl} className='object-contain h-40' />}
+                                style={{ width: 280, height: 380 }}
+
+                                cover={<img alt="example" src={item?.imageUrl} className='object-contain'/>}
                             >
                                 <Meta title={item?.name} description={item?.description} />
-                                <Typography.Title level={4} className='text-green-500'>
-                                    {item?.price.toLocaleString('de-DE')} vnd
+                                <Typography.Title level={4} style={{ color: '#ff7f7f' }}>
+                                    {item?.price.toLocaleString('de-DE')} VND
                                 </Typography.Title>
                                 <div className='flex justify-center'>
                                     <Select

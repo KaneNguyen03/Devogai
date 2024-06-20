@@ -1,14 +1,15 @@
 import { Typography } from "antd"
+import { FaFacebook, FaInstagram } from "react-icons/fa"
 
 const Contact = () => {
     return (
         <div className="p-6 mt-10 m-2">
             <Typography.Title>Contact us:</Typography.Title>
-            <div className="h-52 ml-48 float-left
+            <div className="h-38 ml-48 float-left
               -mt-10 w- flex-col 
               rounded-xl bg-white bg-clip-border 
               text-gray-700 shadow-2xl">
-                <div className="p-6">
+                <div className="p-6 w-96">
                     <h5 className="text-center mr-4 mb-2 
                  block font-sans text-xl 
                  font-semibold text-blue-gray-900 
@@ -17,20 +18,16 @@ const Contact = () => {
                     </h5>
                     <ul>
                         <li className="mt-2">
-                            <span><i className="fa fa-phone mr-2"></i> </span>
-                            0949 989 234
-                        </li>
-                        <li className="mt-2">
                             <span><i className="fa fa-envelope mr-2"></i> </span>
                             <span>devogai.offical@gmail.com</span>
                         </li>
-                        <li className="mt-2">
-                            <span><i className="fab fa-instagram mr-2"></i> </span>
-                            <a href="https://www.instagram.com/devogai/" target="_blank" rel="noopener noreferrer">https://www.instagram.com/devogai/</a>
-                        </li>
-                        <li className="mt-2">
-                            <span><i className="fab fa-facebook mr-2"></i> </span>
-                            <a href="https://www.facebook.com/profile.php?id=100087605461654" target="_blank" rel="noopener noreferrer">https://www.facebook.com/profile.php?id=100087605461654</a>
+                        <li className="mt-2 flex gap-4 p-4">
+                            <a href="https://www.facebook.com/profile.php?id=100087605461654" target="_blank" rel="noopener noreferrer">
+                                <FaFacebook size={30} />
+                            </a>
+                            <a href="https://www.instagram.com/devogai/" target="_blank" rel="noopener noreferrer">
+                                <FaInstagram size={30} />
+                            </a>
                         </li>
 
                     </ul>

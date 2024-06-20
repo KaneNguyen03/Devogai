@@ -29,10 +29,9 @@ export default function Navigator() {
           {NavigatorItems.map((item) => (
             <SubMenu
               key={item.key}
-              title={item.label}
+              title={<span style={{ fontWeight: 'bold' }}>{item.label.toUpperCase()}</span>}
               icon={item.icon}
               onTitleClick={() => {
-
                 handleClick(item.key)
               }}
             >
