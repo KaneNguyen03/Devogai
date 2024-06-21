@@ -122,18 +122,6 @@ export const VIEW_USER_COLS = [
 ]
 
 export const VIEW_PRODUCT_COLS = [
-  // {
-  //   title: 'ID',
-  //   dataIndex: 'id',
-  //   width: 60,
-  //   key: 'id',
-  //   fixed: 'left',
-  //   align: 'center',
-  //   sorter: {
-  //     compare: (a, b) => a.id.localeCompare(b.id)
-  //   },
-  //   defaultSortOrder: 'ascend'
-  // },
   {
     title: 'No',
     dataIndex: 'stt',
@@ -142,7 +130,7 @@ export const VIEW_PRODUCT_COLS = [
     fixed: 'left',
     align: 'center',
     sorter: {
-      compare: (a, b) => a.stt?.localeCompare(b.stt)
+      compare: (a, b) => a?.stt?.toString().localeCompare(b?.stt?.toString())
     },
     defaultSortOrder: 'ascend'
   },
@@ -182,7 +170,7 @@ export const VIEW_PRODUCT_COLS = [
     key: 'createdAt',
     align: 'center',
     render: (date) => moment(date).format('DD-MM-YYYY'),
-    sorter: (a, b) => moment(a.createdAt).unix() - moment(b.createdAt).unix(),
+    sorter: (a, b) => moment(a?.createdAt).unix() - moment(b?.createdAt).unix(),
 
   }
 ]
@@ -196,7 +184,7 @@ export const VIEW_ORDER_COLS = [
     fixed: 'left',
     align: 'center',
     sorter: {
-      compare: (a, b) => a.stt?.localeCompare(b.stt)
+      compare: (a, b) => a?.stt?.toString().localeCompare(b?.stt?.toString())
     },
     defaultSortOrder: 'ascend'
   },
@@ -236,7 +224,7 @@ export const VIEW_ORDER_COLS = [
     key: 'status',
     align: 'center',
     sorter: {
-      compare: (a, b) => a.status.localeCompare(b.status)
+      compare: (a, b) => a?.status.localeCompare(b.status)
     },
   },
   {
@@ -246,6 +234,6 @@ export const VIEW_ORDER_COLS = [
     key: 'createdAt',
     align: 'center',
     render: (date) => moment(date).format('DD-MM-YYYY'),
-    sorter: (a, b) => moment(a.createdAt).unix() - moment(b.createdAt).unix(),
+    sorter: (a, b) => moment(a?.createdAt).unix() - moment(b?.createdAt).unix(),
   },
 ]
