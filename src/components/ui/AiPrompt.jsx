@@ -1,8 +1,9 @@
-import { useState } from 'react'
-import { Button, Card, Input, Typography, notification, Spin } from "antd"
-import prompt from '../../services/prompt' // replace with the actual path
+import { Button, Card, Input, Typography, notification } from "antd"
 import { Buffer } from 'buffer'
+import { useState } from 'react'
 import Logo from '../../assets/logo.jpg'
+import QRCODE from "../../assets/qrcode.jfif"
+import prompt from '../../services/prompt' // replace with the actual path
 
 const AiPrompt = () => {
     const [imageUrl, setImageUrl] = useState(null)
@@ -67,6 +68,11 @@ const AiPrompt = () => {
                             <Typography.Title level={3}>More options</Typography.Title>
                             <Button onClick={handleDownload}>Download Image</Button>
                             <Button onClick={() => window.location.href = 'mailto:devogai.offical@gmail.com'}>Contact admin to print with custom</Button>
+                            <div className="flex justify-center items-center flex-col">
+                                <Typography.Title level={4} style={{ color: '#ff7f7f' }}>Donate:</Typography.Title>
+                            <img src={QRCODE} alt="QRcode" className='w-64' />
+
+                            </div>
                         </div>
                     )}
                 </div>
