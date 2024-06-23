@@ -10,7 +10,7 @@ export default function HomePage() {
             <div className="bg-cover bg-center m-0 h-92 leading-4 text-lg text-center">
                 <img src={Banner} alt="Banner" className="w-full h-full object-cover" />
             </div>
-            <div>
+            <div id="ai">
                 <AiPrompt />
             </div>
             <div id="arrivals">

@@ -1,4 +1,4 @@
-import { AppstoreOutlined, GiftOutlined, ReadOutlined, SettingOutlined, ShoppingOutlined, SkinOutlined, UserOutlined } from "@ant-design/icons"
+import { AppstoreOutlined, GiftOutlined, ReadOutlined, RobotOutlined, SettingOutlined, ShoppingOutlined, SkinOutlined, UserOutlined } from "@ant-design/icons"
 import moment from "moment"
 
 export const NavigatorItems = [
@@ -6,6 +6,12 @@ export const NavigatorItems = [
     label: 'Home',
     key: 'home',
     icon: <UserOutlined />,
+    children: []
+  },
+  {
+    label: 'AI GENERATION',
+    key: 'ai',
+    icon: <RobotOutlined />,
     children: []
   },
   {

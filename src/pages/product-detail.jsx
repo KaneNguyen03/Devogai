@@ -73,7 +73,9 @@ const ProductDetail = () => {
                   onCancel={() => setVisible(false)}
                   onOk={() => setVisible(false)}
                 >
-                  <img src={SizeGuide} alt="size"/>
+                  <div className='flex items-center justify-center p-4'>
+                    <img src={SizeGuide} alt="size" style={{ transform: 'scale(2)' }} className='object-contain rounded-2xl' />
+                  </div>
                 </Modal>
                 {errors[currentProduct?.id] && <Typography.Text>{errors[currentProduct?.id]}</Typography.Text>}
                 <Button type="primary" className="mt-4"

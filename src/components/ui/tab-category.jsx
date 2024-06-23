@@ -38,35 +38,39 @@ const TabCategory = ({ tag }) => {
                 <Typography.Title level={1} style={{ color: '#72543B' }}>{tag.toString().toUpperCase()}</Typography.Title>
             </div>
             <div className='m-0 h-min text-white leading-4 text-lg text-center opacity-4'>
-                <div className='grid grid-cols-4 grid-rows-2 gap-4 px-8 py-4 mt-4'>
-                    {result?.map(item => {
-                        return (
-                            <div key={item.id} className='flex flex-col items-center'>
-                                <Card
-                                    hoverable
-                                    cover={<img alt="example" src={item?.imageUrl} className='object-contain' />}
-                                    onClick={() => navigate(`/product/${item.id}`)}
-                                >
-                                    <Meta title={item.name} description={item.description} />
-                                    <Typography.Title level={4} style={{ color: '#ff7f7f' }}>
-                                        {item?.price.toLocaleString('de-DE')} VND
-                                    </Typography.Title>
-                                    <div className='flex justify-center'>
-                                        <Select defaultValue="Size" className='mt-2 w-20' onClick={(e) => e.stopPropagation()} onChange={(value) => setSelectedSizes(prev => ({ ...prev, [item.id]: value }))}>
-
-                                            {Array.from({
-                                                length: (item?.category === "T-shirt") ? 4 : 1
-                                            }, (_, i) => (
-                                                <Select.Option key={i} value={(item?.category === "T-shirt") ? ['S', 'M', 'L', 'XL'][i] : 'Free'}>
-                                                    {(item?.category === "T-shirt") ? ['S', 'M', 'L', 'XL'][i] : 'Free'}
-                                                </Select.Option>
-                                            ))}
-                                        </Select>
-
-                                    </div>
-                                </Card>
-                                {errors[item.id] && <Typography.Text>{errors[item.id]}</Typography.Text>}
-                                <Button onClick={() => {
+                <div className='grid grid-cols-4 grid-rows-2 gap-4'>
+                    {result?.map(item => (
+                        <div key={item.id} className='flex flex-col items-center'>
+                            <Card
+                                hoverable
+                                cover={<img alt="example" src={item?.imageUrl} className='object-contain w-full h-56 rounded-full' />}
+                                onClick={() => navigate(`/product/${item.id}`)}
+                                className='w-full'
+                            >
+                                <Meta title={item.name} description={item.description} />
+                                <Typography.Title level={4} className='text-pink-500'>
+                                    {item?.price.toLocaleString('de-DE')} VND
+                                </Typography.Title>
+                                <div className='flex justify-center'>
+                                    <Select
+                                        defaultValue="Size"
+                                        className='mt-2 w-20'
+                                        onClick={(e) => e.stopPropagation()}
+                                        onChange={(value) => setSelectedSizes(prev => ({ ...prev, [item.id]: value }))}
+                                    >
+                                        {Array.from({
+                                            length: (item?.category === "T-shirt") ? 4 : 1
+                                        }, (_, i) => (
+                                            <Select.Option key={i} value={(item?.category === "T-shirt") ? ['S', 'M', 'L', 'XL'][i] : 'Free'}>
+                                                {(item?.category === "T-shirt") ? ['S', 'M', 'L', 'XL'][i] : 'Free'}
+                                            </Select.Option>
+                                        ))}
+                                    </Select>
+                                </div>
+                            </Card>
+                            {errors[item.id] && <Typography.Text className='text-red-500'>{errors[item.id]}</Typography.Text>}
+                            <Button
+                                onClick={() => {
                                     if (!selectedSizes[item.id]) {
                                         setErrors(prev => ({ ...prev, [item.id]: `Please select a size for ${item.name} before adding to cart` }))
                                         return
@@ -74,11 +78,13 @@ const TabCategory = ({ tag }) => {
 
                                     addToCart({ ...item, size: selectedSizes[item.id] })
                                     setErrors(prev => ({ ...prev, [item.id]: null }))
-                                }} className='mt-2'>Add to cart
-                                </Button>
-                            </div>
-                        )
-                    })}
+                                }}
+                                className='mt-2'
+                            >
+                                Add to cart
+                            </Button>
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>
