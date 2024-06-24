@@ -13,7 +13,7 @@ const Admin = () => {
         return <Loading />
     }
 
-    const groupedData = data?.data.reduce((acc, order) => {
+    const groupedData = data?.data?.filter(x => x.deleted === false).reduce((acc, order) => {
         const date = new Date(order.date).getDate()
         if (!acc[date]) {
             acc[date] = 0
@@ -38,26 +38,26 @@ const Admin = () => {
                     <div className="p-4 border rounded-lg shadow-sm bg-white">
                         <h2 className="font-bold text-lg">Total Salary</h2>
                         <p className="text-red-500 mt-2">{data?.data
-                            .filter(order => order.status.toLowerCase() === 'completed')
+                            .filter(order => order.status.toLowerCase() === 'completed' && order?.deleted === false)
                             .reduce((total, order) => total + order.totalAmount, 0).toLocaleString('de-DE')} VND</p>
                     </div>
                     <div className="p-4 border rounded-lg shadow-sm bg-white">
                         <h2 className="font-bold text-lg">Total Money Pending</h2>
                         <p className="text-red-500 mt-2">{data?.data
-                            .filter(order => order.status.toLowerCase() === 'pending')
+                            .filter(order => order.status.toLowerCase() === 'pending' && order?.deleted === false)
                             .reduce((total, order) => total + order.totalAmount, 0).toLocaleString('de-DE')} VND</p>
                     </div>
                     <div className="p-4 border rounded-lg shadow-sm bg-white">
                         <h2 className="font-bold text-lg">Total Orders</h2>
-                        <p className="text-gray-500 mt-2">{data?.data.length}</p>
+                        <p className="text-gray-500 mt-2">{data?.data?.filter(x => x.deleted === false).length}</p>
                     </div>
                     <div className="p-4 border rounded-lg shadow-sm bg-white">
                         <h2 className="font-bold text-lg">Order Success</h2>
-                        <p className="text-gray-500 mt-2">{data?.data.filter(order => order.status.toLowerCase() === 'completed').length}</p>
+                        <p className="text-gray-500 mt-2">{data?.data.filter(order => order.status.toLowerCase() === 'completed' && order?.deleted === false).length}</p>
                     </div>
                     <div className="p-4 border rounded-lg shadow-sm bg-white">
                         <h2 className="font-bold text-lg">Order Pending</h2>
-                        <p className="text-gray-500 mt-2">{data?.data.filter(order => order.status.toLowerCase() === 'pending').length}</p>
+                        <p className="text-gray-500 mt-2">{data?.data.filter(order => order.status.toLowerCase() === 'pending' && order?.deleted === false).length}</p>
                     </div>
 
                 </div>
@@ -73,8 +73,8 @@ const Admin = () => {
                     <PieChart width={400} height={400}>
                         <Pie
                             data={[
-                                { name: "Success", value: data?.data.filter(order => order.status.toLowerCase() === 'completed').length },
-                                { name: "Pending", value: data?.data.filter(order => order.status.toLowerCase() === 'pending').length }
+                                { name: "Success", value: data?.data.filter(order => order.status.toLowerCase() === 'completed' && order?.deleted === false).length },
+                                { name: "Pending", value: data?.data.filter(order => order.status.toLowerCase() === 'pending' && order?.deleted === false).length }
                             ]}
                             cx={200}
                             cy={200}
@@ -85,8 +85,8 @@ const Admin = () => {
                             dataKey="value"
                         >
                             {[
-                                { name: "Success", value: data?.data.filter(order => order.status.toLowerCase() === 'completed').length },
-                                { name: "Pending", value: data?.data.filter(order => order.status.toLowerCase() === 'pending').length }
+                                { name: "Success", value: data?.data.filter(order => order.status.toLowerCase() === 'completed' && order?.deleted === false).length },
+                                { name: "Pending", value: data?.data.filter(order => order.status.toLowerCase() === 'pending' && order?.deleted === false).length }
                             ].map((entry, index) => (
                                 <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                             ))}

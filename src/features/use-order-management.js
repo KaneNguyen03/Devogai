@@ -19,6 +19,18 @@ export const useGetOrderDetails = (param) => {
   })
 }
 
+export const useDeleteOrder = (setIsDeleteModalVisible) => {
+  return useMutation(
+    (data) => orderApi.deleteOrder(data),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["orders"], { page_index: 1, page_size: 99 })
+        setIsDeleteModalVisible(false)
+      },
+    }
+  )
+}
+
 export const useUpdateOrders = (setIsModalVisible) => {
   return useMutation(
     (data) => orderApi.updateOrder(data),

@@ -35,6 +35,18 @@ const updateOrder = async (data) => {
   }
 }
 
+const deleteOrder = async (data) => {
+  try {
+    const response = await apiInstance.delete(
+      `${import.meta.env.VITE_ORDER_API}/${data}`,
+      data
+    )
+    return response
+  } catch (error) {
+    throw new Error
+  }
+}
+
 const gerOrderDetails = async (data) => {
   try {
     const response = await apiInstance.get(
@@ -51,7 +63,8 @@ const orderApi = {
   getOrders,
   createOrder,
   updateOrder,
-  gerOrderDetails
+  gerOrderDetails,
+  deleteOrder
 }
 
 export default orderApi

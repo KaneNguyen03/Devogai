@@ -273,8 +273,6 @@ export const VIEW_ORDER_DETAIL_COLS = [
     align: 'center',
     render: (productId) => {
       const dataProduct = productApi.getProductById(productId)
-      console.log("🚀 Kha ne ~ dataProduct:", dataProduct)
-
       return dataProduct?.data?.data?.name || 'Loading...';
     }
   },
