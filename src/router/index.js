@@ -12,6 +12,7 @@ import SuccessPage from "../pages/success-page"
 import UserManagement from "../pages/user-management"
 import ProductManagement from "../pages/product-management"
 import OrderManagement from "../pages/order-management"
+import OrderDetail from "../pages/order-details"
 
 export const ROUTE_PATHS = {
   ROOT: "/",
@@ -90,6 +91,12 @@ export const routes = [
     name: "ProductDetail",
     component: ProductDetail,
     layout: DefauftLayout,
+  },
+  {
+    path: `${ROUTE_PATHS.ADMIN}/order/:id`,
+    name: "OrderDetail",
+    component: OrderDetail,
+    layout: AdminLayout,
   },
   {
     path: `*`,

@@ -37,11 +37,11 @@ const updateOrder = async (data) => {
 
 const gerOrderDetails = async (data) => {
   try {
-    const response = await apiInstance.put(
-      `api/orders/${data.id}/order-detail`,
+    const response = await apiInstance.get(
+      `orders/${data}/order-detail`,
       data
     )
-    return response
+    return response?.data
   } catch (error) {
     throw new Error
   }

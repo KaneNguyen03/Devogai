@@ -1,5 +1,8 @@
+import productApi from "@/services/product"
 import { AppstoreOutlined, GiftOutlined, ReadOutlined, RobotOutlined, SettingOutlined, ShoppingOutlined, SkinOutlined, UserOutlined } from "@ant-design/icons"
+import { Tooltip, Typography } from "antd"
 import moment from "moment"
+import { Link } from "react-router-dom"
 
 export const NavigatorItems = [
   {
@@ -242,4 +245,60 @@ export const VIEW_ORDER_COLS = [
     render: (date) => moment(date).format('DD-MM-YYYY'),
     sorter: (a, b) => moment(a?.createdAt).unix() - moment(b?.createdAt).unix(),
   },
+  {
+    title: 'Order details',
+    dataIndex: 'fullName',
+    width: 100,
+    key: 'name',
+    align: 'center',
+    ellipsis: {
+      showTitle: false
+    },
+    render: (text = 'View', value) => (
+      <Link to={value.id}>
+        <Tooltip placement="top" title={text}>
+          <Typography.Text>{text}</Typography.Text>
+        </Tooltip>
+      </Link>
+    )
+  },
+]
+
+export const VIEW_ORDER_DETAIL_COLS = [
+  {
+    title: 'Product',
+    dataIndex: 'productId',
+    width: 100,
+    key: 'productId',
+    align: 'center',
+    render: (productId) => {
+      const dataProduct = productApi.getProductById(productId)
+      console.log("🚀 Kha ne ~ dataProduct:", dataProduct)
+
+      return dataProduct?.data?.data?.name || 'Loading...';
+    }
+  },
+  {
+    title: 'Quantity',
+    dataIndex: 'quantity',
+    width: 100,
+    key: 'quantity',
+    align: 'center'
+  },
+  {
+    title: 'Size',
+    dataIndex: 'sizes',
+    width: 100,
+    key: 'sizes',
+    align: 'center'
+  },
+  {
+    title: 'Price',
+    dataIndex: 'price',
+    width: 100,
+    key: 'price',
+    align: 'center',
+    render: (text) => parseFloat(text).toLocaleString('de-DE') + " VND"
+  },
+
 ]

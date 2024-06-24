@@ -13,8 +13,9 @@ export const useGetOrders = (param) => {
 
 export const useGetOrderDetails = (param) => {
   return useQuery({
-    queryKey: ["orders"],
-    queryFn: () => orderApi.getOrders(param),
+    queryKey: ["orders-detail", param],
+    queryFn: () => orderApi.gerOrderDetails(param),
+    enabled: true
   })
 }
 
